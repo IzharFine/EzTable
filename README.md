@@ -30,10 +30,22 @@ The struct and selects labels are not required but they can improve your table.
 Describes your table name.<br />
 ### AddCallBack(string)
 If you want to have a row add option to your table you need to write here function name for callback.<br />
+The callback will get 2 parameters:<br />
+1. New row object.<br />
+2. Table Name.<br />
 ### UpdateCallBack(string)
 If you want to have a update column option to your table you need to write here function name for callback.<br />
+The callback will get 5 parameters:<br />
+1 - Changed field object. <br />
+2 - Old field value. <br />
+3 - Field struct.<br />
+4 - Row ID.<br />
+5 - Table name.<br />
 ### DeleteCallBack(string)
 If you want to have a delete row option to your table you need to write here function name for callback.<br />
+The callback will get 2 parameters:<br />
+1. Row ID.<br />
+2. Table Name.<br />
 ### RowsInPage(number)
 If you want to add paging to your table its describes how many rows you want per page (0 means no paging).<br />
 ### EnableSearch(boolean)
@@ -66,15 +78,7 @@ Option value.
 ### Desc(string)
 Option description.
 
-After you finish to custom your table you can save the settings:
-```
-var properties = JSON.stringify(ezTable.Properties);
-var struct = JSON.stringify(ezTable.TableStruct);
-var selects = JSON.stringify(ezTable.Selects);
-```
-
-
-In this case you need an exist table in your DOM in this struct:
+Before you build the table you MUST have a DOM table object that describes your data (header and body):<br />
 ```
 <table>
 <thead>
@@ -83,9 +87,30 @@ In this case you need an exist table in your DOM in this struct:
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr data-id="5">
 <td>TEXT</td>
 </tr>
 </tbody>
 </table>
+```
+### Note:
+data-id attribute desctibe the identity in the DB and its required only if u need it for UpdateCallBack/DeleteCallBack. <br /><br />
+
+Now when everything is ready you can use:
+```
+ezTable.buildTable('DOMTableSelector', 'DOMTargetSelector');
+```
+
+### Important notes and information:
+After you finish to custom your table you can save the settings:
+```
+var properties = JSON.stringify(ezTable.Properties);
+var struct = JSON.stringify(ezTable.TableStruct);
+var selects = JSON.stringify(ezTable.Selects);
+```
+And re-use it in that way:
+```
+ezTable.Properties = JSON.parse(properties);
+ezTable.TableStruct = JSON.parse(struct);
+ezTable.Selects = JSON.parse(selects);
 ```
