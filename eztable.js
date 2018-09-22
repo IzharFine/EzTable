@@ -500,7 +500,6 @@ class EzTable{
         searchComp.className = 'ez-search-input';
         searchComp.placeholder = 'Type text to filter';
         searchComp.addEventListener('keyup', ()=>{
-            let index=0;
             this.CurrentPage = 1;
             this.Body.DisplayRows = [];
             if(self.Properties.UpdateCallBack){
@@ -634,7 +633,6 @@ class EzSelect{
 
 class EzHeader{
     constructor(data){
-        let index=0;
         this.HeaderCols=[];
         data.forEach((element, index)=> {
             let headerCol = {
