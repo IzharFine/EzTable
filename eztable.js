@@ -749,8 +749,10 @@ class EzBody{
                 deleteBtn.textContent = 'DELETE';
                 deleteBtn.className = 'ez-btn delete-btn';
                 deleteBtn.addEventListener('click',()=>{
-                    table.Body.Rows.splice(table.Body.Rows.indexOf(row), 1);
+                    let lengthFix = table.Body.Rows.length;
                     table.Body.DisplayRows.splice(table.Body.DisplayRows.indexOf(row), 1);
+                    if(lengthFix == table.Body.Rows.length)
+                         table.Body.Rows.splice(table.Body.Rows.indexOf(row), 1);
                     table.showHideDisplayRows(table.CurrentPage-1);
                     window[table.Properties.DeleteCallBack.trim()](row, table.Properties.TableName);
                 });
