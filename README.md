@@ -14,8 +14,129 @@ then you need to create the EzTableGenerator object:
 var ezTable = new EzTableGenerator();
 ```
 After you made the object you have 2 options:<br />
-1. Build your table with JsonObject you made (if you dont know what i`m talking about you can read about it later in this introduction).
+1. Build your table with JsonObject you made.
 ```
+example of valid EzTable JsonObject:
+var JsonObject = {
+    Properties:[{
+        AddCallBack: 'add',
+        UpdateCallBack: 'update',
+        DeleteCallBack: 'delete',
+        EnableSearch: true,
+        Sortable: true,
+        RowsInPage: 4,
+        TableName: '',
+        Template: ''
+    }],
+    Selects:[
+            { Name: "Genders", Options:
+            [{Value: '1', Desc: 'Male'},
+            {Value: '2', Desc: 'Female'}]
+        },
+        { Name: "Test", Options:
+            [{Value: '1', Desc: 'Test'},
+            {Value: '2', Desc: 'Me'}]
+        }
+    ],
+    TableStruct:[
+        {
+            PHName:'USR_First_Name',
+            Type:'Text',
+            Disabled:false,
+            SelectName: ''
+        },
+        {
+            PHName:'USR_Last_Name',
+            Type:'Text',
+            Disabled:true,
+            SelectName: ''
+        },
+        {
+            PHName:'USR_Birthday',
+            Type:'Date',
+            Disabled:false,
+            SelectName: ''
+        },
+        {
+            PHName:'USR_Active',
+            Type:'Checkbox',
+            Disabled:false,
+            SelectName: ''
+        },
+        {
+            PHName:'USR_Gender',
+            Type:'Select',
+            Disabled:false,
+            SelectName: 'Genders'
+        }
+    ],
+    Header:[
+        {
+            Name:'First Name',
+        },
+        {
+            Name:'Last Name',
+        },
+        {
+            Name:'Birthday',
+        },
+        {
+            Name:'Active',
+        },
+        {
+            Name:'Gender',
+        }
+    ],
+    Body: [
+            [{ Id: "1", Values:
+            [{Value: 'Moshe'},
+            {Value: 'Cohen'},
+            {Value: null},
+            {Value: false},
+            {Value: '1'}]
+        }],
+        [{ Id: "2", Values:
+            [
+                {Value: 'Izhar'},
+                {Value: 'Fine'},
+                {Value: '1990-03-11'},
+                {Value: true},
+                {Value: '1'}]
+     }],
+     [{ Id: "5", Values:
+            [
+                {Value: 'Yakir'},
+                {Value: 'Karsish'},
+                {Value: '1990-06-11'},
+                {Value: true},
+                {Value: '1'}]
+     }],
+     [{ Id: "6", Values:
+            [
+                {Value: 'Itay'},
+                {Value: 'Velner'},
+                {Value: '1989-06-18'},
+                {Value: true},
+                {Value: '1'}]
+     }],
+     [{ Id: "7", Values:
+            [
+                {Value: 'Moran'},
+                {Value: 'Fine'},
+                {Value: '1985-03-18'},
+                {Value: true},
+                {Value: '2'}]
+     }],
+     [{ Id: "9", Values:
+            [
+                {Value: 'Tamara'},
+                {Value: 'Vaisman'},
+                {Value: '1991-19-10'},
+                {Value: true},
+                {Value: '2'}]
+     }],
+    ]
+};
 ezTable.buildTable(YourJsonObject, 'HTMLTargetSelector');
 ```
 2. Configuration the table build by your own.<br />
