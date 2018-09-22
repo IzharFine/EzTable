@@ -4,7 +4,12 @@ An easy way to convert simpale table to smart datatable.
 
 # Introduction
 ## How to use
-First you need to create the EzTableGenerator object like this:
+First you need to add refernces to the js and css files:
+```
+<script src="yourPath/eztable.js"></script>
+<link rel="stylesheet" type="text/css" href="yourPath/eztable.css">
+```
+then you need to create the EzTableGenerator object:
 ```
 var ezTable = new EzTableGenerator();
 ```
