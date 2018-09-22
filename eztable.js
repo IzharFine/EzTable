@@ -1,4 +1,7 @@
-/*** EzTable version 0.1, Built by Izhar Fine ***/
+// ********************************
+// EzTable - Built by Izhar Fine, 
+// Release year 2018 - Version 0.1
+// ********************************
 
 class EzTableGenerator{
     constructor(){
@@ -143,7 +146,6 @@ class EzTableGenerator{
         return wrapper;
     }
 
-
     _updateJsonObjectByName(name, jsonObject){
         switch(name){
             case 'Properties':
@@ -184,10 +186,9 @@ class EzTableGenerator{
         let jsonObject = this._getJsonObjectByName(name);
         let wrapper = document.createElement('div');
         wrapper.className = 'ez-table-generator-edit-add';
-        let index = 0;
         if(jsonObject){
-            jsonObject.forEach(object=>{
-                this._buildEditAddRow(object,index++, name, wrapper);
+            jsonObject.forEach((object, index)=>{
+                this._buildEditAddRow(object,index, name, wrapper);
             });
             parent.appendChild(wrapper);
         }
@@ -352,14 +353,13 @@ class EzTable{
     buildAddDiv(addBtn){
         let addDiv = document.createElement('div');
         addDiv.className = 'ez-add-div';
-        let index=0;
         let addFields=[];
-        this.Header.HeaderCols.forEach(field=>{
+        this.Header.HeaderCols.forEach((field,index)=>{
             let fieldInput;
             let fieldTemp = {
                 Value:''  
             };
-            let tempField = new EzField(fieldTemp, index++);
+            let tempField = new EzField(fieldTemp, index);
             let fieldRow = document.createElement('div');        
             let fieldLabel = document.createElement('label');
             fieldLabel.textContent = field.Name;
@@ -504,18 +504,18 @@ class EzTable{
             this.CurrentPage = 1;
             this.Body.DisplayRows = [];
             if(self.Properties.UpdateCallBack){
-                this.Body.Rows.forEach(row=>{
+                this.Body.Rows.forEach((row, index)=>{
                     let foundFlag = false;
                     row.Fields.forEach(field=>{
-                        let fieldStruct = self.TableStruct.getStuctByIndex(field.Index);
-                        let fieldType = fieldStruct.Type.toLowerCase();
+                        let fieldStruct = (self.TableStruct ? self.TableStruct.getStuctByIndex(field.Index) : null);
+                        let fieldType = (fieldStruct ? fieldStruct.Type.toLowerCase() : 'text');
                         if(typeof(field.Value) == 'string'){
                             switch(fieldType){
                                 case 'checkbox':
                                 break;
                                 case 'date':
                                     let fixedValue = field.Value.split('-');
-                                    fixedValue = fixedValue[2] + "/" + fixedValue[1] + "/" + fixedValue[0];
+                                    fixedValue = fixedValue[2] + '/' + fixedValue[1] + '/' + fixedValue[0];
                                     if(fixedValue.indexOf(searchComp.value.toLowerCase())!=-1){
                                         foundFlag=true;
                                         return;
@@ -544,7 +544,7 @@ class EzTable{
             else{
                 this.Body.Rows.forEach(row=>{
                     let foundFlag = false;
-                    row.Fields.forEach(field=>{
+                    row.Fields.forEach((field, index)=>{
                         if(typeof(field.Value) == 'string' && field.Value.toLowerCase().indexOf(searchComp.value.toLowerCase())!=-1){
                             foundFlag=true;
                             return;
@@ -566,7 +566,7 @@ class EzTable{
 
     manageDisplayRows(foundFlag, row, index){
         if(foundFlag){
-            row.Index = index++;
+            row.Index = index;
             this.Body.DisplayRows.push(row);
         }
         else if(row.DomObj.parentNode == this.Body.DomObj){
@@ -636,10 +636,10 @@ class EzHeader{
     constructor(data){
         let index=0;
         this.HeaderCols=[];
-        data.forEach(element => {
+        data.forEach((element, index)=> {
             let headerCol = {
             Name: element.Name,
-            Index: index++,
+            Index: index,
             DomObj: null
             };
             this.HeaderCols.push(headerCol);
@@ -698,18 +698,16 @@ class EzHeader{
 
 class EzBody{
     constructor(data){
-        let rowIndex=0;
         this.DomObj = null;
         this.Rows=[];
         this.DisplayRows=[];
-        data.forEach(rows =>{
+        data.forEach((rows, rowIndex)=>{
             let fields = [];
-            let index = 0;
-            rows[0].Values.forEach(field =>{
-                fields.push(new EzField(field, index++));
+            rows[0].Values.forEach((field,index)=>{
+                fields.push(new EzField(field, index));
             });
             let row = {
-                Index:rowIndex++,
+                Index:rowIndex,
                 Id: rows[0].Id,
                 Fields: fields,
                 DomObj: null
@@ -752,6 +750,7 @@ class EzBody{
                 deleteBtn.className = 'ez-btn delete-btn';
                 deleteBtn.addEventListener('click',()=>{
                     table.Body.Rows.splice(table.Body.Rows.indexOf(row), 1);
+                    table.Body.DisplayRows.splice(table.Body.DisplayRows.indexOf(row), 1);
                     table.showHideDisplayRows(table.CurrentPage-1);
                     window[table.Properties.DeleteCallBack.trim()](row, table.Properties.TableName);
                 });
@@ -791,9 +790,18 @@ class EzField{
 
     buildDOMField(table){
         let domObj;
-        let struct = table.TableStruct.getStuctByIndex(this.Index);
-        let type = struct.Type.toLowerCase();
-        let disabled = struct.Disabled;
+        let struct;
+        let type;
+        let disabled;
+        if(table.TableStruct){
+            struct = table.TableStruct.getStuctByIndex(this.Index);
+            type = struct.Type.toLowerCase();
+            disabled = struct.Disabled;
+        }
+        else{
+            type = 'text';
+            disabled = false;
+        }
         switch(type){
             case 'text':
             case 'number':
@@ -819,7 +827,7 @@ class EzField{
     }
 
     updateField(table){
-        let fieldStruct = table.TableStruct.getStuctByIndex(this.Index);
+        let fieldStruct = (table.TableStruct ? table.TableStruct.getStuctByIndex(this.Index) : null);
         let rowId = this.Parent.Id;
         let tableName = table.Properties.TableName;
         let oldValue = this.Value;
