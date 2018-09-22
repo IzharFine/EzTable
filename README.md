@@ -23,7 +23,7 @@ For this part you need to use:
 ```
 ezTable.controlPanel();
 ```
-After you use this command a window with 3 labels will appear in the left top corner of your page.<br />
+after you use this command a window with 3 labels will appear in the left top corner of your page.<br />
 ## Properties(Required):
 ### TableName(string)
 Describes your table name.<br />
