@@ -1,6 +1,6 @@
 # EzTable 0.1
 Smart DataTable, built by Izhar Fine.<br />
-An easy way to convert simpale table to smart datatable.
+An easy way to convert simple table to smart datatable.
 
 # Introduction
 ## How to use
