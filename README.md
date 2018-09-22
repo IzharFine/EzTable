@@ -48,9 +48,9 @@ In this part you can describe each column (its especially helps with the UpdateC
 You should add structs as many as your columns length, each struct describes 1 column by index.<br />
 You can add struct object by click on the add object button.
 ### PHName(string)
-Physical name of the column.<br />
+Physical name of the column.
 ### Type(string)
-Type of the column.<br />
+Type of the column.
 ### Disabled(boolean)
 Enable/disable (only relevant if using the UpdateCallBack/AddCallBack).
 ### SelectName(string)
@@ -59,7 +59,19 @@ Select name that belong to the column (only relevant if using the UpdateCallBack
 ## Selects:
 In this part you can add dropdowns (selects) to your table.<br />
 You can add select object by click on the add object button and add option object by click the add button.<br />
+### Name(string)
+Name of the select (the identity).
+### Value(string)
+Option value.
+### Desc(string)
+Option description.
 
+After you finish to custom your table you can save the settings:
+```
+var properties = JSON.stringify(ezTable.Properties);
+var struct = JSON.stringify(ezTable.TableStruct);
+var selects = JSON.stringify(ezTable.Selects);
+```
 
 
 In this case you need an exist table in your DOM in this struct:
