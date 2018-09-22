@@ -19,7 +19,7 @@ For this part you need to use:
 ezTable.controlPanel();
 ```
 After you use this command a window with 3 labels will appear in the left top corner of your page.<br />
-In the properties you`ll find the next things:<br />
+## Properties:
 ### TableName(string)
 describes your table name.<br />
 ### AddCallBack(string)
