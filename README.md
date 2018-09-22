@@ -24,6 +24,7 @@ For this part you need to use:
 ezTable.controlPanel();
 ```
 After you use this command a window with 3 labels will appear in the left top corner of your page.<br />
+The struct and selects labels are not required but they can improve your table.
 ## Properties:
 ### TableName(string)
 Describes your table name.<br />
@@ -44,7 +45,8 @@ Template of your table.<br />
 
 ## Struct:
 In this part you can describe each column (its especially helps with the UpdateCallBack and AddCallBack parts).<br />
-You should add structs as many as your columns length, each struct describes 1 column by index.
+You should add structs as many as your columns length, each struct describes 1 column by index.<br />
+You can add struct object by click on the add object button.
 ### PHName(string)
 Physical name of the column.<br />
 ### Type(string)
@@ -53,6 +55,11 @@ Type of the column.<br />
 Enable/disable (only relevant if using the UpdateCallBack/AddCallBack).
 ### SelectName(string)
 Select name that belong to the column (only relevant if using the UpdateCallBack/AddCallBack and you want to add dropdown (select)).<br />
+
+## Selects:
+In this part you can add dropdowns (selects) to your table.<br />
+You can add select object by click on the add object button and add option object by click the add button.<br />
+
 
 
 In this case you need an exist table in your DOM in this struct:
