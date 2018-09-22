@@ -24,8 +24,7 @@ For this part you need to use:
 ezTable.controlPanel();
 ```
 After you use this command a window with 3 labels will appear in the left top corner of your page.<br />
-The struct and selects labels are not required but they can improve your table.
-## Properties:
+## Properties(Required):
 ### TableName(string)
 Describes your table name.<br />
 ### AddCallBack(string)
@@ -94,7 +93,7 @@ Before you build the table you MUST have a DOM table object that describes your 
 </table>
 ```
 ### Note:
-data-id attribute desctibe the identity in the DB and its required only if u need it for UpdateCallBack/DeleteCallBack. <br /><br />
+data-id attribute desctibe the identity in the DB and its required only if u need it for UpdateCallBack/DeleteCallBack. <br />
 
 Now when everything is ready you can use:
 ```
@@ -114,3 +113,104 @@ ezTable.Properties = JSON.parse(properties);
 ezTable.TableStruct = JSON.parse(struct);
 ezTable.Selects = JSON.parse(selects);
 ```
+Valid build of EzTable JsonObject:
+```
+var JsonObject = {
+    Properties:[{
+        AddCallBack: 'add',
+        UpdateCallBack: 'update',
+        DeleteCallBack: 'delete',
+        EnableSearch: true,
+        Sortable: true,
+        RowsInPage: 2,
+        TableName: 'ez-table',
+        Template: ''
+    }],
+    Selects:[
+            { Name: "Genders", Options:
+            [{Value: '1', Desc: 'Male'},
+            {Value: '2', Desc: 'Female'}]
+        },
+        { Name: "Test", Options:
+            [{Value: '1', Desc: 'Test'},
+            {Value: '2', Desc: 'Me'}]
+        }
+    ],
+    TableStruct:[
+        {
+            PHName:'USR_First_Name',
+            Type:'Text',
+            Disabled:false,
+            SelectName: ''
+        },
+        {
+            PHName:'USR_Last_Name',
+            Type:'Text',
+            Disabled:true,
+            SelectName: ''
+        },
+        {
+            PHName:'USR_Birthday',
+            Type:'Date',
+            Disabled:false,
+            SelectName: ''
+        },
+        {
+            PHName:'USR_Active',
+            Type:'Checkbox',
+            Disabled:false,
+            SelectName: ''
+        },
+        {
+            PHName:'USR_Gender',
+            Type:'Select',
+            Disabled:false,
+            SelectName: 'Genders'
+        }
+    ],
+    Header:[
+        {
+            Name:'First Name',
+        },
+        {
+            Name:'Last Name',
+        },
+        {
+            Name:'Birthday',
+        },
+        {
+            Name:'Active',
+        },
+        {
+            Name:'Gender',
+        }
+    ],
+    Body: [
+            [{ Id: "1", Values:
+            [{Value: 'Moshe'},
+            {Value: 'Cohen'},
+            {Value: null},
+            {Value: false},
+            {Value: '1'}]
+        }],
+        [{ Id: "2", Values:
+            [
+                {Value: 'Izhar'},
+                {Value: 'Fine'},
+                {Value: '1990-03-11'},
+                {Value: true},
+                {Value: '1'}]
+     }],
+     [{ Id: "5", Values:
+            [
+                {Value: 'Yakir'},
+                {Value: 'Karsish'},
+                {Value: '1990-06-11'},
+                {Value: true},
+                {Value: '1'}]
+     }],
+    ]
+};
+```
+
+### Enjoy! :)
