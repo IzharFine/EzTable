@@ -1,5 +1,5 @@
-# EzTable
-EzTable Version 0.1, Smart DataTable.<br />
+# EzTable 0.1
+Smart DataTable, built by Izhar Fine.<br />
 An easy way to convert simpale table to smart datatable.
 
 # Introduction
