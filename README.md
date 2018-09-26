@@ -16,7 +16,7 @@ then you need to create the EzTableGenerator object:
 ```
 var ezTable = new EzTableGenerator();
 ```
-after you that you have 2 options:<br />
+after that you have 2 options:<br />
 1. Build your table with JsonObject you made (more information about EzTable JsonObject later in this introduction).
 ```
 ezTable.buildTable(YourJsonObject, 'HTMLTargetSelector');
