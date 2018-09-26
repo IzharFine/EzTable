@@ -3,6 +3,7 @@ Smart DataTable, built in JavaScript ES6 by Izhar Fine.<br />
 An easy way to convert simple table to smart DataTable.
 
 # Introduction
+Demo: https://izharfine.github.io/EzTable/
 ## How to use
 First you need to add refernces to the js and css files like this:
 ```
