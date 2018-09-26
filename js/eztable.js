@@ -460,12 +460,14 @@ export class EzBody{
                 deleteBtn.textContent = 'DELETE';
                 deleteBtn.className = 'ez-btn delete-btn';
                 deleteBtn.addEventListener('click',()=>{
-                    let lengthFix = table.Body.Rows.length;
-                    table.Body.DisplayRows.splice(table.Body.DisplayRows.indexOf(row), 1);
-                    if(lengthFix == table.Body.Rows.length)
-                         table.Body.Rows.splice(table.Body.Rows.indexOf(row), 1);
-                    table.showHideDisplayRows(table.CurrentPage-1);
-                    window[table.Properties.DeleteCallBack.trim()](row, table.Properties.TableName);
+                    if(confirm('Are you sure that you want to delete this row?')){
+                        let lengthFix = table.Body.Rows.length;
+                        table.Body.DisplayRows.splice(table.Body.DisplayRows.indexOf(row), 1);
+                        if(lengthFix == table.Body.Rows.length)
+                             table.Body.Rows.splice(table.Body.Rows.indexOf(row), 1);
+                        table.showHideDisplayRows(table.CurrentPage-1);
+                        window[table.Properties.DeleteCallBack.trim()](row, table.Properties.TableName);
+                    }
                 });
                 deleteRow.appendChild(deleteBtn);
                 domRow.appendChild(deleteRow);
