@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <script type="module">
+            import { EzTableGenerator } from "./js/eztablegenerator.js";
+            window["EzTable"] = EzTableGenerator;
+        </script>
+        <link href="eztable.css" type="text/css" href="mystyle.css">
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>BirthDay</th>
+                    <th>Active</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-id="1">
+                    <td>Izhar Fine</td>
+                    <td>1990-03-11</td>
+                    <td>1</td>
+                </tr>
+                <tr data-id="2">
+                    <td>Moran Fine</td>
+                    <td>1985-03-18</td>
+                    <td>1</td>
+                </tr>
+                <tr data-id="3">
+                    <td>Moshe Cohen</td>
+                    <td>1989-05-03</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
