@@ -4,9 +4,12 @@ An easy way to convert simple table to smart DataTable.
 
 # Introduction
 ## How to use
-First you need to add refernces to the js and css files:
+First you need to add refernces to the js and css files like this:
 ```
-<script src="yourPath/eztable.js"></script>
+<script type="module">
+    import { EzTableGenerator } from "yourPath/eztablegenerator.js";
+    window["EzTableGenerator"] = EzTableGenerator;
+</script>
 <link rel="stylesheet" type="text/css" href="yourPath/eztable.css">
 ```
 then you need to create the EzTableGenerator object:
@@ -212,5 +215,5 @@ var JsonObject = {
     ]
 };
 ```
-
+### Because it wrote with ES6 module it only work in server (local server can be good too).
 ### Enjoy! :)
