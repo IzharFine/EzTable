@@ -525,7 +525,7 @@ export class EzField{
             domObj = document.createElement('input');
             domObj.type = type;
             if(type=='checkbox'){
-                domObj.checked = JSON.parse(this.Value);
+                domObj.checked = JSON.parse(this.Value?this.Value:0);
             }
             else{
             domObj.value = this.Value;
