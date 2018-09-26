@@ -45,11 +45,11 @@
         let prop = '[{"TableName":"EzTable","AddCallBack":"addCallBack","UpdateCallBack":"updateCallBack","DeleteCallBack":"deleteCallBack","RowsInPage":10,"EnableSearch":true,"Sortable":true,"Template":""}]';
         let struct = '[{"PHName":"","Type":"Text","Disabled":false,"SelectName":""},{"PHName":"","Type":"Date","Disabled":false,"SelectName":""},{"PHName":"","Type":"Select","Disabled":false,"SelectName":"Genders"},{"PHName":"","Type":"Checkbox","Disabled":false,"SelectName":""}]';
         let selects = '[{"Name":"Genders","Options":[{"Value":"1","Desc":"Male"},{"Value":"2","Desc":"Female"}]}]';
-        let eztable = new EzTableGenerator();
-        eztable.Properties = JSON.parse(prop);
-        eztable.TableStruct = JSON.parse(struct);
-        eztable.Selects = JSON.parse(selects);
-        eztable.buildTable('#eztable','body');
+        let ezTable = new EzTableGenerator();
+        ezTable.Properties = JSON.parse(prop);
+        ezTable.TableStruct = JSON.parse(struct);
+        ezTable.Selects = JSON.parse(selects);
+        ezTable.buildTable('#eztable','body');
     });
 
     function addCallBack(a,b){
