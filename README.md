@@ -215,5 +215,5 @@ var JsonObject = {
     ]
 };
 ```
-### Because it wrote with ES6 module it only work in server (local server can be good too).
+### Because it wrote with ES6 module its work only in server (local server can be good too).
 ### Enjoy! :)
