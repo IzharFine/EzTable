@@ -2,13 +2,13 @@
     <head>
         <script type="module">
             import { EzTableGenerator } from "./js/eztablegenerator.js";
-            window["EzTable"] = EzTableGenerator;
+            window["EzTableGenerator"] = EzTableGenerator;
         </script>
-        <link href="css/eztable.css" rel="stylesheet">
+        <link href="eztable.css" type="text/css" href="mystyle.css">
     </head>
     <body>
-        <table>
-           <thead>
+        <table id="eztable">
+            <thead>
                 <tr>
                     <th>Full Name</th>
                     <th>BirthDay</th>
@@ -40,6 +40,16 @@
     </body>
 </html>
 <script>
+
+    document.addEventListener('DOMContentLoaded',()=>{
+        let prop = '[{"TableName":"EzTable","AddCallBack":"addCallBack","UpdateCallBack":"updateCallBack","DeleteCallBack":"deleteCallBack","RowsInPage":10,"EnableSearch":true,"Sortable":true,"Template":""}]';
+        let struct = '[{"PHName":"","Type":"Text","Disabled":false,"SelectName":""},{"PHName":"","Type":"Date","Disabled":false,"SelectName":""},{"PHName":"","Type":"Select","Disabled":false,"SelectName":"Genders"},{"PHName":"","Type":"Checkbox","Disabled":false,"SelectName":""}]';
+        let selects = '[{"Name":"Genders","Options":[{"Value":"1","Desc":"Male"},{"Value":"2","Desc":"Female"}]}]';
+        let table = new EzTableGenerator();
+        debugger;
+        table.buildTable('#eztable','body');
+    });
+
     function addCallBack(a,b){
         console.log(a);
         console.log(b);
