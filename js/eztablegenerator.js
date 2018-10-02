@@ -5,68 +5,72 @@
 
 import { EzBody, EzHeader, EzField, EzSelect, EzTable } from './eztable.js';
 
-export class EzTableGenerator{
-    constructor(){
+export class EzTableGenerator {
+    constructor() {
         this.EzTable = null,
-        this.Properties = [{
-            TableName: '',
-            AddCallBack: '',
-            UpdateCallBack: '',
-            DeleteCallBack: '',
-            RowsInPage: 0,
-            EnableSearch: false,
-            Sortable: false,
-            Template: ''
-        }],
-        this._TempTableStruct = 
+            this.Properties = [{
+                TableName: '',
+                AddCallBack: '',
+                UpdateCallBack: '',
+                DeleteCallBack: '',
+                RowsInPage: 0,
+                EnableSearch: false,
+                Sortable: false,
+                ColumnMode: false,
+                Template: ''
+            }],
+            this._TempTableStruct =
             [{
                 PHName: '',
                 Type: 'Text',
-                Disabled:false,
+                Disabled: false,
                 SelectName: ''
             }],
-        this._TempSelects = [
-            { Name: '', Options:
-            [{Value: '', Desc: ''}]
-        }],
-        this.TableStruct = null,
-        this.Selects = null,
-        this._TypeSelect = [
-            { Name: "Types", Options:
-            [{Value: 'Text', Desc: 'Text'},
-            {Value: 'Number', Desc: 'Number'},
-            {Value: 'Date', Desc: 'Date'},
-            {Value: 'Checkbox', Desc: 'Checkbox'},
-            {Value: 'Select', Desc: 'Select'}]
-        }],
-        this._TemplateSelect = [
-            { Name: "Templates", Options:
-            [{Value: '', Desc: 'Default'},
-            {Value: 'ez-dark', Desc: 'Dark'},
-        ]
-        }]
+            this._TempSelects = [
+                {
+                    Name: '', Options:
+                        [{ Value: '', Desc: '' }]
+                }],
+            this.TableStruct = null,
+            this.Selects = null,
+            this._TypeSelect = [
+                {
+                    Name: "Types", Options:
+                        [{ Value: 'Text', Desc: 'Text' },
+                        { Value: 'Number', Desc: 'Number' },
+                        { Value: 'Date', Desc: 'Date' },
+                        { Value: 'Checkbox', Desc: 'Checkbox' },
+                        { Value: 'Select', Desc: 'Select' }]
+                }],
+            this._TemplateSelect = [
+                {
+                    Name: "Templates", Options:
+                        [{ Value: '', Desc: 'Default' },
+                        { Value: 'ez-dark', Desc: 'Dark' },
+                        ]
+                }]
     }
 
-    buildTable(object, targetDOM){
-        if(object.constructor == Object){
+    buildTable(object, targetDOM) {
+        if (object.constructor == Object) {
             this._buildFromJsonObject(object, document.querySelector(targetDOM));
         }
-        else{
+        else {
             this._buildFromDOMTable(document.querySelector(object), document.querySelector(targetDOM));
         }
     }
 
 
-    _buildFromJsonObject(jsonObject, targetDOM){
+    _buildFromJsonObject(jsonObject, targetDOM) {
         let ezTable = new EzTable(jsonObject);
         targetDOM.appendChild(ezTable.buildTable());
         this.EzTable = ezTable;
     }
 
-    _buildFromDOMTable(tableObject, targetDOM){
+    _buildFromDOMTable(tableObject, targetDOM) {
         let header = Array.prototype.slice.call(tableObject.getElementsByTagName('thead')[0].getElementsByTagName('th'));
         let headerObj = [];
-        header.forEach(col=>{
+        header.forEach(col => {
             let headerCol = {
                 Name: col.textContent
             }
@@ -74,17 +78,17 @@ export class EzTableGenerator{
         });
         let rows = Array.prototype.slice.call(tableObject.getElementsByTagName('tbody')[0].getElementsByTagName('tr'));
         let rowsObj = [];
-        rows.forEach(field=>{
-            let values = []; 
-            for(let i=0;i<field.getElementsByTagName('td').length;i++){
+        rows.forEach(field => {
+            let values = [];
+            for (let i = 0; i < field.getElementsByTagName('td').length; i++) {
                 let fieldObj = {
                     Value: field.getElementsByTagName('td')[i].textContent
                 }
                 values.push(fieldObj);
             }
             let row = [{
-                Id: field.getAttribute('data-id'), 
-                Values:values
+                Id: field.getAttribute('data-id'),
+                Values: values
             }]
             rowsObj.push(row);
         });
@@ -101,7 +105,7 @@ export class EzTableGenerator{
         this.EzTable = ezTable;
     }
 
-    controlPanel(){
+    controlPanel() {
         let generatorWrapper = document.createElement('div');
         generatorWrapper.className = 'ez-table-generator';
         let title = document.createElement('h3');
@@ -109,9 +113,9 @@ export class EzTableGenerator{
         let closeBtn = document.createElement('span');
         closeBtn.textContent = 'X';
         closeBtn.className = 'ez-table-generator-close-btn';
-        closeBtn.addEventListener('click', ()=>{
+        closeBtn.addEventListener('click', () => {
             generatorWrapper.className = 'ez-table-generator';
-            setTimeout(()=>{ generatorWrapper.remove(); }, 500);
+            setTimeout(() => { generatorWrapper.remove(); }, 500);
         });
         generatorWrapper.appendChild(closeBtn);
         generatorWrapper.appendChild(title);
@@ -119,129 +123,129 @@ export class EzTableGenerator{
         generatorWrapper.appendChild(this._buildGeneratorDivs('Struct'));
         generatorWrapper.appendChild(this._buildGeneratorDivs('Selects'));
         document.querySelector('body').appendChild(generatorWrapper);
-        setTimeout(()=>{ generatorWrapper.classList = 'ez-table-generator show'; }, 50);
+        setTimeout(() => { generatorWrapper.classList = 'ez-table-generator show'; }, 50);
     }
 
-    _buildGeneratorDivs(name){
+    _buildGeneratorDivs(name) {
         let wrapper = document.createElement('div');
         wrapper.className = 'ez-table-generator-object-wrapper';
         let toggleBtn = document.createElement('div');
         toggleBtn.className = 'ez-table-generator-title';
         toggleBtn.textContent = name;
         wrapper.appendChild(toggleBtn);
-        if(name!='Properties'){
+        if (name != 'Properties') {
             let addBtn = document.createElement('input');
             addBtn.type = 'button';
             addBtn.className = 'ez-table-generator-btn';
             addBtn.value = 'Add object';
-            addBtn.addEventListener('click',()=>{
+            addBtn.addEventListener('click', () => {
                 this._jsonObjectBuilder(name, wrapper);
             });
             wrapper.appendChild(addBtn);
         }
-        toggleBtn.addEventListener('click', ()=>{
-            if(wrapper.getElementsByClassName('ez-table-generator-edit-add')[0])
-                  wrapper.removeChild(wrapper.getElementsByClassName('ez-table-generator-edit-add')[0]);
+        toggleBtn.addEventListener('click', () => {
+            if (wrapper.getElementsByClassName('ez-table-generator-edit-add')[0])
+                wrapper.removeChild(wrapper.getElementsByClassName('ez-table-generator-edit-add')[0]);
             else
                 this._buildEditAddGenerator(name, wrapper);
         });
         return wrapper;
     }
 
-    _updateJsonObjectByName(name, jsonObject){
-        switch(name){
+    _updateJsonObjectByName(name, jsonObject) {
+        switch (name) {
             case 'Properties':
-            this.Properties = jsonObject;
-            break;
+                this.Properties = jsonObject;
+                break;
             case 'Struct':
-            this.TableStruct = jsonObject;
-            break;
+                this.TableStruct = jsonObject;
+                break;
             case 'Selects':
-            this.Selects = jsonObject;
-            break;
+                this.Selects = jsonObject;
+                break;
         }
     }
 
-    _getJsonObjectByName(name){
-        switch(name){
+    _getJsonObjectByName(name) {
+        switch (name) {
             case 'Properties':
-            return this.Properties;
-            break;
+                return this.Properties;
+                break;
             case 'Struct':
-            return this.TableStruct;
-            break;
+                return this.TableStruct;
+                break;
             case 'TempStruct':
-            return this._TempTableStruct;
-            break;
+                return this._TempTableStruct;
+                break;
             case 'TempSelects':
-            return this._TempSelects;
-            break;
+                return this._TempSelects;
+                break;
             case 'Selects':
-            return this.Selects;
-            break;
+                return this.Selects;
+                break;
         }
     }
 
-    _buildEditAddGenerator(name, parent){
-        if(parent.getElementsByClassName('ez-table-generator-edit-add')[0])
-             parent.removeChild(parent.getElementsByClassName('ez-table-generator-edit-add')[0]);
+    _buildEditAddGenerator(name, parent) {
+        if (parent.getElementsByClassName('ez-table-generator-edit-add')[0])
+            parent.removeChild(parent.getElementsByClassName('ez-table-generator-edit-add')[0]);
         let jsonObject = this._getJsonObjectByName(name);
         let wrapper = document.createElement('div');
         wrapper.className = 'ez-table-generator-edit-add';
-        if(jsonObject){
-            jsonObject.forEach((object, index)=>{
-                this._buildEditAddRow(object,index, name, wrapper);
+        if (jsonObject) {
+            jsonObject.forEach((object, index) => {
+                this._buildEditAddRow(object, index, name, wrapper);
             });
             parent.appendChild(wrapper);
         }
     }
 
-    _buildEditAddRow(object, index, name, wrapper){
+    _buildEditAddRow(object, index, name, wrapper) {
         let rowsWrapper = document.createElement('div');
         rowsWrapper.className = 'ez-table-generator-rows-wrapper';
-        Object.keys(object).forEach(property=>{
-            if(object[property].constructor == Array || object.constructor == Array){
+        Object.keys(object).forEach(property => {
+            if (object[property].constructor == Array || object.constructor == Array) {
                 this._buildEditAddRow(object[property], index, name, wrapper);
             }
-            else{
+            else {
                 let row = document.createElement('div');
                 row.className = 'ez-table-generator-row';
                 let label = document.createElement('label');
                 label.textContent = property;
                 row.appendChild(label);
                 let input;
-                if(name == 'Struct' && property == 'Type'){
+                if (name == 'Struct' && property == 'Type') {
                     let select = new EzSelect(this._TypeSelect);
                     input = select.buildSelect('Types');
                     input.value = object.Type;
                 }
-                else if(name == 'Properties' && property == 'Template'){
+                else if (name == 'Properties' && property == 'Template') {
                     let select = new EzSelect(this._TemplateSelect);
                     input = select.buildSelect('Templates');
                     input.value = object.Template;
                 }
-                else{
+                else {
                     input = document.createElement('input');
-                    input.type = typeof(object[property]) == 'boolean' ? 'checkbox' : typeof(object[property]);
-                    if(input.type == 'checkbox'){
+                    input.type = typeof (object[property]) == 'boolean' ? 'checkbox' : typeof (object[property]);
+                    if (input.type == 'checkbox') {
                         input.checked = object[property];
                     }
-                    else{
+                    else {
                         input.value = object[property];
                     }
                 }
-                input.addEventListener('change',()=>{
-                    object[property] = input.type == 'checkbox' ? input.checked ? true : false : input.type == 'number' ? input.value*1 : input.value;
+                input.addEventListener('change', () => {
+                    object[property] = input.type == 'checkbox' ? input.checked ? true : false : input.type == 'number' ? input.value * 1 : input.value;
                 });
                 let col = document.createElement('div');
                 col.className = 'ez-table-generator-col';
                 col.appendChild(label);
-                if(name == 'Selects' && property == 'Name'){
+                if (name == 'Selects' && property == 'Name') {
                     let addBtn = document.createElement('input');
                     addBtn.type = 'button';
                     addBtn.className = 'ez-table-generator-btn';
                     addBtn.value = 'ADD';
-                    addBtn.addEventListener('click',()=>{
+                    addBtn.addEventListener('click', () => {
                         let jsonObject = this.Selects[this.Selects.indexOf(object)];
                         let tempObject = this._getJsonObjectByName('Temp' + name);
                         tempObject = JSON.stringify(tempObject);
@@ -252,12 +256,12 @@ export class EzTableGenerator{
                     });
                     col.appendChild(addBtn);
                 }
-                if(name == 'Selects' && property == 'Name' || name == 'Struct' && property == 'SelectName'){
+                if (name == 'Selects' && property == 'Name' || name == 'Struct' && property == 'SelectName') {
                     let removeBtn = document.createElement('input');
                     removeBtn.type = 'button';
                     removeBtn.className = 'ez-table-generator-btn';
                     removeBtn.value = 'REMOVE';
-                    removeBtn.addEventListener('click',()=>{
+                    removeBtn.addEventListener('click', () => {
                         this._getJsonObjectByName(name).splice(this._getJsonObjectByName(name).indexOf(object), 1);
                         this._buildEditAddGenerator(name, wrapper.parentNode);
                     });
@@ -271,16 +275,16 @@ export class EzTableGenerator{
                 rowsWrapper.appendChild(row);
             }
         });
-        if(rowsWrapper.childNodes.length)
-           wrapper.appendChild(rowsWrapper);
+        if (rowsWrapper.childNodes.length)
+            wrapper.appendChild(rowsWrapper);
     }
 
-    _jsonObjectBuilder(name, wrapper){
+    _jsonObjectBuilder(name, wrapper) {
         let jsonObject = this._getJsonObjectByName(name);
         let tempObject = this._getJsonObjectByName('Temp' + name);
         tempObject = JSON.stringify(tempObject);
         tempObject = tempObject.substring(1, tempObject.length - 1);
-        if(jsonObject && jsonObject.length != 0){
+        if (jsonObject && jsonObject.length != 0) {
             jsonObject = JSON.stringify(jsonObject);
             jsonObject = jsonObject.substring(1, jsonObject.length - 1) + ',' + tempObject;
         }
@@ -290,4 +294,3 @@ export class EzTableGenerator{
         this._buildEditAddGenerator(name, wrapper);
     }
 }
-
