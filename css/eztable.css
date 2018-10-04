@@ -208,6 +208,7 @@
     transition: .25s linear all;
     border-radius: 0.25rem;
     z-index:999;
+    top:15px;
 }
 
 .ez-dark .ez-add-div {
@@ -349,7 +350,7 @@
     overflow-y: auto;
     position: absolute;
     background-color: white;
-    top: 0px;
+    top: 15px;
     min-width:329px;
 }
 
@@ -419,8 +420,8 @@
 }
 
 .ez-hamburger-line {
-    padding-bottom: 0.25rem;
-    padding-top: 0.25rem;
+    padding-bottom: 0.55rem;
+    padding-top: 0.55rem;
     border-bottom: 1px solid #959ba0;
 }
 
