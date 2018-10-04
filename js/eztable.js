@@ -92,7 +92,7 @@ export class EzTable {
         });
         select.addEventListener('change', () => {
             let index = select.options[select.selectedIndex].value;
-            let ascFlag = select.options[select.selectedIndex].getAttribute('data-direction') == "asc";
+            let ascFlag = select.options[select.selectedIndex].getAttribute('data-direction') != "asc";
             this.sortTable(index, this, ascFlag);
         });
         wrapper.appendChild(select)
