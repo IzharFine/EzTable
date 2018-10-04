@@ -128,6 +128,7 @@ var JsonObject = {
         DeleteCallBack: 'delete',
         EnableSearch: true,
         Sortable: true,
+        ColumnMode: false,
         RowsInPage: 2,
         TableName: 'ez-table',
         Template: ''
