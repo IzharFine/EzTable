@@ -583,6 +583,7 @@ export class EzField {
         }
         else {
             domObj = document.createElement('span');
+            domObj.className = 'ez-span-field';
             domObj.textContent = this.Value;
         }
         return domObj;
