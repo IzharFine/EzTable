@@ -75,7 +75,7 @@ export class EzTable {
             addBtn.disabled = true;
             let addDiv = this.buildAddDiv(addBtn);
             this.DomObj.appendChild(addDiv);
-            setTimeout(() => { addDiv.className = 'ez-add-div show' }, 500);
+            setTimeout(() => { addDiv.className = 'ez-add-div ez-show' }, 500);
         });
         return addBtn;
     }
@@ -99,6 +99,7 @@ export class EzTable {
             else {
                 fieldInput = document.createElement('input');
             }
+            fieldInput.className = 'ez-add-field';
             fieldInput.addEventListener('change', () => {
                 if (fieldInput.type == 'checkbox') {
                     tempField.Value = fieldInput.checked;
@@ -459,7 +460,7 @@ export class EzBody {
 
     buildDomRows(table, rows) {
         let domRows = [];
-        rows.forEach((row, rowIndex) => {
+        rows.forEach(row => {
             let domRow = document.createElement('div');
             domRow.className = 'ez-row';
             row.Fields.forEach((field, index) => {
@@ -467,14 +468,14 @@ export class EzBody {
                 domField.className = 'ez-field';
                 domField.setAttribute('ez-title', table.Header.HeaderCols[index].Name);
                 field.DomObj = field.buildField(table);
-                field.Parent = row;
+                field.RowParent = row;
                 domField.appendChild(field.DomObj);
                 if (!index) {
                     let toggleRow = document.createElement('span');
                     toggleRow.textContent = '+';
                     toggleRow.className = 'ez-toggle';
                     toggleRow.addEventListener('click', () => {
-                        table.Body.DisplayRows[rowIndex].DomObj.classList.toggle('ez-show');
+                        field.RowParent.DomObj.classList.toggle('ez-show');
                         toggleRow.textContent = toggleRow.textContent == '+' ? '-' : '+';
                     });
                     domField.appendChild(toggleRow);
@@ -511,7 +512,7 @@ export class EzField {
     constructor(data, index) {
         this.Index = index;
         this.Value = data.Value;
-        this.Parent = null;
+        this.RowParent = null;
         this.DomObj = null;
         return this;
     }
@@ -571,7 +572,7 @@ export class EzField {
 
     updateField(table) {
         let fieldStruct = (table.TableStruct ? table.TableStruct.getStuctByIndex(this.Index) : null);
-        let rowId = this.Parent.Id;
+        let rowId = this.RowParent.Id;
         let tableName = table.Properties.TableName;
         let oldValue = this.Value;
         if (this.DomObj.type == 'checkbox') {
