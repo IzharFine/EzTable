@@ -39,11 +39,11 @@ The callback will get 2 parameters:<br />
 ### UpdateCallBack(string)
 If you want to have a update column option to your table you need to write here function name for callback.<br />
 The callback will get 5 parameters:<br />
-1 - Changed field object. <br />
-2 - Old field value. <br />
-3 - Field struct.<br />
-4 - Row ID.<br />
-5 - Table name.<br />
+1. Changed field object. <br />
+2. Old field value. <br />
+3. Field struct.<br />
+4. Row ID.<br />
+5. Table name.<br />
 ### DeleteCallBack(string)
 If you want to have a delete row option to your table you need to write here function name for callback.<br />
 The callback will get 2 parameters:<br />
