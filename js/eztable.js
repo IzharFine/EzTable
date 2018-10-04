@@ -35,9 +35,7 @@ export class EzTable {
         table.appendChild(filtersWrapper);
         if (this.Properties.EnableSearch)
             filtersWrapper.appendChild(this.buildSearchComp(table));
-        filtersWrapper.appendChild(this.buildColumnModeSelect(table));
-        if (this.Properties.AddCallBack)
-            filtersWrapper.appendChild(this.buildAddBtn());
+        filtersWrapper.appendChild(this.buildHamburgerMenu(table));
         table.appendChild(this.Header.buildHeader(this));
         table.appendChild(this.Body.buildRows(this, this.Body.Rows));
         this.DomObj = table;
@@ -50,9 +48,60 @@ export class EzTable {
         return table;
     }
 
+    buildHamburgerMenu(table) {
+        let wrapper = document.createElement('div');
+        wrapper.className = 'ez-hamburger-wrapper';
+        let label = document.createElement('span');
+        label.className = 'ez-hamburger';
+        label.textContent = '☰';
+        wrapper.appendChild(label);
+        let menu = document.createElement('div');
+        menu.className = 'ez-hamburger-menu ez-hide';
+        if (this.Properties.AddCallBack)
+            menu.appendChild(this.buildAddBtn());
+        let sortSelect = this.buildSortSelect(table)
+        menu.appendChild(sortSelect);
+        menu.appendChild(this.buildColumnModeSelect(table));
+        label.addEventListener('click', () => {
+            menu.classList.toggle('ez-hide');
+        });
+        document.querySelector('body').addEventListener('click', () => {
+            if (event.target.parentNode != wrapper && event.target != sortSelect.children[0]) {
+                menu.className = 'ez-hamburger-menu ez-hide';
+            }
+        });
+        wrapper.appendChild(menu);
+        return wrapper;
+    }
+
+    buildSortSelect() {
+        let wrapper = document.createElement('div');
+        wrapper.classList = 'ez-hamburger-line ez-sort-select';
+        let select = document.createElement('select');
+        this.Header.HeaderCols.forEach(ele => {
+            let option = document.createElement('option');
+            option.textContent = ele.Name + ' ASC';
+            option.setAttribute('data-direction', 'asc');
+            option.value = ele.Index;
+            select.appendChild(option);
+            option = document.createElement('option');
+            option.textContent = ele.Name + ' DESC';
+            option.setAttribute('data-direction', 'desc');
+            option.value = ele.Index;
+            select.appendChild(option);
+        });
+        select.addEventListener('change', () => {
+            let index = select.options[select.selectedIndex].value;
+            let ascFlag = select.options[select.selectedIndex].getAttribute('data-direction') == "asc";
+            this.sortTable(index, this, ascFlag);
+        });
+        wrapper.appendChild(select)
+        return wrapper;
+    }
+
     buildColumnModeSelect(table) {
         let wrapper = document.createElement('div');
-        wrapper.className = 'ez-column-mode-cb';
+        wrapper.className = 'ez-hamburger-line';
         let cbox = document.createElement('input');
         cbox.type = 'checkbox';
         cbox.checked = this.Properties.ColumnMode;
@@ -60,24 +109,27 @@ export class EzTable {
             table.classList.toggle('ez-column');
         });
         let label = document.createElement('span');
-        label.textContent = 'Column mode:';
+        label.textContent = 'Column Mode:';
         wrapper.appendChild(label);
         wrapper.appendChild(cbox);
         return wrapper;
     }
 
     buildAddBtn() {
+        let wrapper = document.createElement('div');
+        wrapper.className = 'ez-hamburger-line';
         let addBtn = document.createElement('input');
         addBtn.type = 'button';
         addBtn.className = 'ez-add-btn';
-        addBtn.value = 'ADD';
+        addBtn.value = 'ADD ROW';
         addBtn.addEventListener('click', () => {
             addBtn.disabled = true;
             let addDiv = this.buildAddDiv(addBtn);
             this.DomObj.appendChild(addDiv);
             setTimeout(() => { addDiv.className = 'ez-add-div ez-show' }, 500);
         });
-        return addBtn;
+        wrapper.appendChild(addBtn);
+        return wrapper;
     }
 
     buildAddDiv(addBtn) {
@@ -304,6 +356,20 @@ export class EzTable {
             this.Body.DomObj.removeChild(row.DomObj);
         }
     }
+
+    sortTable(colIndex, table, ascFlag) {
+        table.Body.DisplayRows.sort(function (a, b) {
+            var aVal = a.Fields[colIndex].Value;
+            var bVal = b.Fields[colIndex].Value;
+            if (aVal > bVal)
+                return ascFlag ? -1 : 1;
+            else if (aVal == bVal)
+                return 0;
+            else (aVal < bVal)
+            return ascFlag ? 1 : -1;
+        });
+        table.showHideDisplayRows(table.CurrentPage - 1);
+    }
 }
 
 export class TableStruct {
@@ -411,17 +477,7 @@ export class EzHeader {
         }
         else
             sortComp.className = 'ez-arrow ez-bottom-arrow';
-        table.Body.DisplayRows.sort(function (a, b) {
-            var aVal = a.Fields[headerCol.Index].Value;
-            var bVal = b.Fields[headerCol.Index].Value;
-            if (aVal > bVal)
-                return ascFlag ? -1 : 1;
-            else if (aVal == bVal)
-                return 0;
-            else (aVal < bVal)
-            return ascFlag ? 1 : -1;
-        });
-        table.showHideDisplayRows(table.CurrentPage - 1);
+        table.sortTable(headerCol.Index, table, ascFlag);
     }
 }
 
