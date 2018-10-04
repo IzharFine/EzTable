@@ -220,6 +220,11 @@
     transform: translateY(0%);
 }
 
+.ez-span-field{
+    width:100%;
+    text-align:center;
+}
+
 .ez-search-input {
     display: inline-block;
     height: calc(2.25rem + 2px);
