@@ -123,7 +123,7 @@ export class EzTableGenerator {
         generatorWrapper.appendChild(this._buildGeneratorDivs('Struct'));
         generatorWrapper.appendChild(this._buildGeneratorDivs('Selects'));
         document.querySelector('body').appendChild(generatorWrapper);
-        setTimeout(() => { generatorWrapper.classList = 'ez-table-generator show'; }, 50);
+        setTimeout(() => { generatorWrapper.classList = 'ez-table-generator ez-show'; }, 50);
     }
 
     _buildGeneratorDivs(name) {
@@ -137,7 +137,7 @@ export class EzTableGenerator {
             let addBtn = document.createElement('input');
             addBtn.type = 'button';
             addBtn.className = 'ez-table-generator-btn';
-            addBtn.value = 'Add object';
+            addBtn.value = 'ADD';
             addBtn.addEventListener('click', () => {
                 this._jsonObjectBuilder(name, wrapper);
             });
@@ -234,6 +234,7 @@ export class EzTableGenerator {
                         input.value = object[property];
                     }
                 }
+                input.className = 'ez-cp-field';
                 input.addEventListener('change', () => {
                     object[property] = input.type == 'checkbox' ? input.checked ? true : false : input.type == 'number' ? input.value * 1 : input.value;
                 });
@@ -260,7 +261,7 @@ export class EzTableGenerator {
                     let removeBtn = document.createElement('input');
                     removeBtn.type = 'button';
                     removeBtn.className = 'ez-table-generator-btn';
-                    removeBtn.value = 'REMOVE';
+                    removeBtn.value = 'DEL';
                     removeBtn.addEventListener('click', () => {
                         this._getJsonObjectByName(name).splice(this._getJsonObjectByName(name).indexOf(object), 1);
                         this._buildEditAddGenerator(name, wrapper.parentNode);
