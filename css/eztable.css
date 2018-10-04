@@ -208,7 +208,7 @@
     transition: .25s linear all;
     border-radius: 0.25rem;
     z-index:999;
-    top:15px;
+    top:10px;
 }
 
 .ez-dark .ez-add-div {
@@ -350,7 +350,7 @@
     overflow-y: auto;
     position: absolute;
     background-color: white;
-    top: 15px;
+    top: 10px;
     min-width:329px;
 }
 
