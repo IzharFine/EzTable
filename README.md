@@ -55,6 +55,8 @@ If you want to add paging to your table its describes how many rows you want per
 Enable/disable search input to your table.<br />
 ### Sortable(boolean)
 Enable/disable sortable by column to your table. <br />
+### ColumnMode(boolean)
+Table view mode. <br />
 ### Template(string) 
 Template of your table.<br />
 
