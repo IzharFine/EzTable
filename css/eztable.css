@@ -222,7 +222,7 @@
 
 .ez-span-field{
     width:100%;
-    text-align:center;
+    padding:.375rem .75rem;
 }
 
 .ez-search-input {
