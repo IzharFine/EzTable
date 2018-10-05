@@ -36,6 +36,7 @@ If you want to have a row add option to your table you need to write here functi
 The callback will get 2 parameters:<br />
 1. New row object.<br />
 2. Table Name.<br />
+* Pay attention that the new row ID is 0 by default, you probebly will have to set the new row ID you got from the server for instant Update/Delete functions.<br />
 ### UpdateCallBack(string)
 If you want to have a update column option to your table you need to write here function name for callback.<br />
 The callback will get 5 parameters:<br />
