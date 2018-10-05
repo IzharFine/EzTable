@@ -298,7 +298,7 @@ export class EzTable {
                                     break;
                                 case 'date':
                                     let fixedValue = field.Value.split('-');
-                                    fixedValue = fixedValue[1] + '/' + fixedValue[2] + '/' + fixedValue[0];
+                                    fixedValue = fixedValue[2] + '/' + fixedValue[1] + '/' + fixedValue[0];
                                     if (fixedValue.indexOf(searchComp.value.toLowerCase()) != -1) {
                                         foundFlag = true;
                                         return;
