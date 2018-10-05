@@ -29,7 +29,8 @@ export class EzTable {
 
     buildTable(targetDOM) {
         let table = document.createElement('div');
-        table.className = 'ez-table ' + this.Properties.Template + (this.Properties.ColumnMode ? ' ez-column' : '');
+        table.className = 'ez-table ' + (this.Properties.ColumnMode ? ' ez-column' : '');
+        table.setAttribute('data-template', this.Properties.Template);
         let filtersWrapper = document.createElement('div');
         filtersWrapper.className = 'ez-filters-wrapper';
         table.appendChild(filtersWrapper);
@@ -59,18 +60,57 @@ export class EzTable {
         menu.className = 'ez-hamburger-menu ez-hide';
         if (this.Properties.AddCallBack)
             menu.appendChild(this.buildAddBtn());
+        let pageInRowsInput = this.buildPageInRowsInput(table);
+        menu.appendChild(pageInRowsInput);
         let sortSelect = this.buildSortSelect(table)
         menu.appendChild(sortSelect);
+        let templateSelect = this.buildTemplateSelect(table);
+        menu.appendChild(templateSelect);
         menu.appendChild(this.buildColumnModeSelect(table));
         label.addEventListener('click', () => {
             menu.classList.toggle('ez-hide');
         });
         document.querySelector('body').addEventListener('click', () => {
-            if (event.target.parentNode != wrapper && event.target != sortSelect.children[0]) {
+            if (event.target.parentNode != wrapper && event.target != pageInRowsInput.children[0] && event.target != sortSelect.children[0] && event.target != templateSelect.children[0]) {
                 menu.className = 'ez-hamburger-menu ez-hide';
             }
         });
         wrapper.appendChild(menu);
+        return wrapper;
+    }
+
+    buildPageInRowsInput(table) {
+        let wrapper = document.createElement('div');
+        wrapper.classList = 'ez-hamburger-line';
+        let input = document.createElement('input');
+        input.value = this.Properties.RowsInPage;
+        input.placeholder = 'No paging';
+        input.addEventListener('change', () => {
+            this.Properties.RowsInPage = input.value * 1;
+            this.CurrentPage = 1;
+            this.showHideDisplayRows(0);
+        });
+        wrapper.appendChild(input);
+        return wrapper;
+    }
+
+    buildTemplateSelect(table) {
+        let wrapper = document.createElement('div');
+        wrapper.classList = 'ez-hamburger-line ez-template-select';
+        let templateObj = [
+            {
+                Name: "Templates", Options:
+                [{ Value: '', Desc: 'Default' },
+                { Value: 'ez-dark', Desc: 'Dark' },
+                ]
+            }];
+        let select = new EzSelect(templateObj);
+        select = select.buildSelect('Templates');
+        select.value = this.Properties.Template;
+        select.addEventListener('change', () => {
+            table.setAttribute('data-template', select.value);
+        });
+        wrapper.appendChild(select)
         return wrapper;
     }
 
@@ -180,7 +220,7 @@ export class EzTable {
         submitBtn.addEventListener('click', () => {
             let newRow = [{
                 Id: '0', Index: this.Body.Rows.length + 1, Fields:
-                    addFields
+                addFields
             }];
             this.Body.buildDomRows(this, newRow);
             this.Body.Rows.push(newRow[0]);
@@ -271,6 +311,10 @@ export class EzTable {
             this.DomObj.appendChild(this.PagingComp);
         }
         else {
+            if (this.PagingComp) {
+                this.DomObj.removeChild(this.PagingComp);
+                this.PagingComp.remove();
+            }
             for (let i = 0; i < this.Body.DisplayRows.length; i++) {
                 this.Body.DomObj.appendChild(this.Body.DisplayRows[i].DomObj);
             }
