@@ -84,6 +84,7 @@ export class EzTable {
         wrapper.classList = 'ez-hamburger-line';
         let input = document.createElement('input');
         input.type = 'number';
+        input.min = '0';
         input.value = this.Properties.RowsInPage;
         input.placeholder = 'No paging';
         input.addEventListener('change', () => {
