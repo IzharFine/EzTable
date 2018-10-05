@@ -207,8 +207,8 @@
     transform: translateY(-125%);
     transition: .25s linear all;
     border-radius: 0.25rem;
-    z-index:999;
-    top:10px;
+    z-index: 999;
+    top: 10px;
 }
 
 .ez-dark .ez-add-div {
@@ -220,9 +220,9 @@
     transform: translateY(0%);
 }
 
-.ez-span-field{
-    width:100%;
-    padding:.375rem .75rem;
+.ez-span-field {
+    width: 100%;
+    padding: .375rem .75rem;
 }
 
 .ez-search-input {
@@ -303,8 +303,8 @@
     align-self: center;
     cursor: pointer;
     margin-right: .25rem;
-    font-weight:bold;
-    font-size:2rem;
+    font-weight: bold;
+    font-size: 2rem;
 }
 
 
@@ -334,11 +334,11 @@
 }
 
 
-.ez-hamburger-menu.ez-hide {
-    opacity: 0;
-    transform-origin: right top 0px;
-    transform: scale(0);
-}
+    .ez-hamburger-menu.ez-hide {
+        opacity: 0;
+        transform-origin: right top 0px;
+        transform: scale(0);
+    }
 
 
 
@@ -356,7 +356,7 @@
     position: absolute;
     background-color: white;
     top: 10px;
-    min-width:329px;
+    min-width: 329px;
 }
 
     .ez-table-generator h3 {
@@ -418,10 +418,10 @@
     align-items: center;
 }
 
-.ez-add-btn{
-    width:100%;
-    justify-content:center;
-    margin-left:0px;
+.ez-add-btn {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0px;
 }
 
 .ez-hamburger-line {
@@ -430,6 +430,13 @@
     border-bottom: 1px solid #959ba0;
 }
 
+.ez-dark .ez-hamburger-menu {
+    background-color: #212529;
+}
+
+.ez-table.ez-column.ez-dark .ez-row.ez-show {
+    background-color: #668f5c;
+}
 
 .ez-submit-add, .ez-cancel-add {
     padding: 0.55rem;
@@ -485,4 +492,3 @@
     width: 173px;
     margin-left: 0.55rem;
 }
-
