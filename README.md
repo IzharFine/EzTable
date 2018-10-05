@@ -121,7 +121,7 @@ ezTable.Properties = JSON.parse(properties);
 ezTable.TableStruct = JSON.parse(struct);
 ezTable.Selects = JSON.parse(selects);
 ```
-Valid build of EzTable JsonObject:
+Valid full build of EzTable JsonObject:
 ```
 var JsonObject = {
     Properties:[{
