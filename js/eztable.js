@@ -313,7 +313,7 @@ export class EzTable {
         else {
             if (this.PagingComp) {
                 this.DomObj.removeChild(this.PagingComp);
-                this.PagingComp = null
+                this.PagingComp = null;
             }
             for (let i = 0; i < this.Body.DisplayRows.length; i++) {
                 this.Body.DomObj.appendChild(this.Body.DisplayRows[i].DomObj);
