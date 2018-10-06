@@ -62,10 +62,9 @@ export class EzTable {
             menu.appendChild(this.buildAddBtn());
         let pageInRowsInput = this.buildPageInRowsInput(table);
         menu.appendChild(pageInRowsInput);
-        let sortSelect = this.buildSortSelect(table)
-        menu.appendChild(sortSelect);
-        let templateSelect = this.buildTemplateSelect(table);
-        menu.appendChild(templateSelect);
+        if (this.Properties.Sortable)
+            menu.appendChild(this.buildSortSelect(table));
+        menu.appendChild(this.buildTemplateSelect(table));
         menu.appendChild(this.buildColumnModeSelect(table));
         label.addEventListener('click', () => {
             menu.classList.toggle('ez-hide');
