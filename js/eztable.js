@@ -63,7 +63,8 @@ export class EzTable {
         let pageInRowsInput = this.buildPageInRowsInput(table);
         menu.appendChild(pageInRowsInput);
         let sortSelect = this.buildSortSelect(table)
-        menu.appendChild(sortSelect);
+        if (this.Properties.Sortable)
+            menu.appendChild(sortSelect);
         let templateSelect = this.buildTemplateSelect(table);
         menu.appendChild(templateSelect);
         menu.appendChild(this.buildColumnModeSelect(table));
