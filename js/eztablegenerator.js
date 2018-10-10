@@ -63,7 +63,7 @@ export class EzTableGenerator {
 
     _buildFromJsonObject(jsonObject, targetDOM) {
         let ezTable = new EzTable(jsonObject);
-        targetDOM.appendChild(ezTable.buildTable());
+        ezTable.buildTable(targetDOM);
         this.EzTable = ezTable;
     }
 
@@ -100,7 +100,7 @@ export class EzTableGenerator {
             Selects: this.Selects
         }
         let ezTable = new EzTable(tableObj);
-        targetDOM.appendChild(ezTable.buildTable());
+        ezTable.buildTable(targetDOM);
         tableObject.style.display = 'none';
         this.EzTable = ezTable;
     }
