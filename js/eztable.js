@@ -405,7 +405,7 @@ export class EzTable {
     }
 
     sortTable(colIndex, table, ascFlag) {
-        table.Body.DisplayRows.sort(function (a, b) {
+        table.Body.DisplayRows.sort((a, b)=>{
             var aVal = a.Fields[colIndex].Value;
             var bVal = b.Fields[colIndex].Value;
             if (aVal > bVal)
