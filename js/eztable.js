@@ -103,9 +103,9 @@ export class EzTable {
         let templateObj = [
             {
                 Name: "Templates", Options:
-                [{ Value: '', Desc: 'Default' },
-                { Value: 'ez-dark', Desc: 'Dark' },
-                ]
+                    [{ Value: '', Desc: 'Default' },
+                    { Value: 'ez-dark', Desc: 'Dark' },
+                    ]
             }];
         let select = new EzSelect(templateObj);
         select = select.buildSelect('Templates');
@@ -221,12 +221,12 @@ export class EzTable {
         submitBtn.className = 'ez-submit-add ez-btn';
         submitBtn.value = 'SUBMIT';
         submitBtn.addEventListener('click', () => {
-            let newRow = [{
+            let newRow = {
                 Id: '0', Index: this.Body.Rows.length + 1, Fields:
-                addFields
-            }];
-            this.Body.buildDomRows(this, newRow);
-            this.Body.Rows.push(newRow[0]);
+                    addFields
+            };
+            this.Body.buildDomRow(this, newRow);
+            this.Body.Rows.push(newRow);
             this.showHideDisplayRows(this.CurrentPage - 1);
             addDiv.className = 'ez-add-div';
             setTimeout(() => { addDiv.remove(); }, 500);
@@ -308,6 +308,8 @@ export class EzTable {
         if (this.Properties.RowsInPage) {
             let firstRow = page * this.Properties.RowsInPage;
             for (let i = firstRow; (i < firstRow + this.Properties.RowsInPage && i < this.Body.DisplayRows.length); i++) {
+                if (!this.Body.DisplayRows[i].DomObj)
+                    this.Body.buildDomRow(this, this.Body.DisplayRows[i]);
                 this.Body.DomObj.appendChild(this.Body.DisplayRows[i].DomObj);
             }
             this.PagingComp = this.buildPagingComp();
@@ -319,6 +321,8 @@ export class EzTable {
                 this.PagingComp = null;
             }
             for (let i = 0; i < this.Body.DisplayRows.length; i++) {
+                if (!this.Body.DisplayRows[i].DomObj)
+                    this.Body.buildDomRow(this, this.Body.DisplayRows[i]);
                 this.Body.DomObj.appendChild(this.Body.DisplayRows[i].DomObj);
             }
         }
@@ -399,13 +403,13 @@ export class EzTable {
             row.Index = index;
             this.Body.DisplayRows.push(row);
         }
-        else if (row.DomObj.parentNode == this.Body.DomObj) {
+        else if (row.DomObj && row.DomObj.parentNode == this.Body.DomObj) {
             this.Body.DomObj.removeChild(row.DomObj);
         }
     }
 
     sortTable(colIndex, table, ascFlag) {
-        table.Body.DisplayRows.sort((a, b)=>{
+        table.Body.DisplayRows.sort((a, b) => {
             var aVal = a.Fields[colIndex].Value;
             var bVal = b.Fields[colIndex].Value;
             if (aVal > bVal)
@@ -550,7 +554,10 @@ export class EzBody {
     }
 
     buildRows(table, rows) {
-        let domRows = this.buildDomRows(table, rows);
+        let domRows = [];
+        for (let i = 0; i < (table.Properties.RowsInPage || rows.length - 1) && rows[i] ; i++) {
+            domRows.push(this.buildDomRow(table, rows[i]));
+        }
         let body = document.createElement('div');
         body.className = 'ez-body';
         this.DisplayRows = rows;
@@ -561,53 +568,49 @@ export class EzBody {
         return body;
     }
 
-    buildDomRows(table, rows) {
-        let domRows = [];
-        rows.forEach(row => {
-            let domRow = document.createElement('div');
-            domRow.className = 'ez-row';
-            row.Fields.forEach((field, index) => {
-                let domField = document.createElement('div');
-                domField.className = 'ez-field';
-                domField.setAttribute('ez-title', table.Header.HeaderCols[index].Name);
-                field.DomObj = field.buildField(table);
-                field.RowParent = row;
-                domField.appendChild(field.DomObj);
-                if (!index) {
-                    let toggleRow = document.createElement('span');
-                    toggleRow.textContent = '+';
-                    toggleRow.className = 'ez-toggle';
-                    toggleRow.addEventListener('click', () => {
-                        field.RowParent.DomObj.classList.toggle('ez-show');
-                        toggleRow.textContent = toggleRow.textContent == '+' ? '-' : '+';
-                    });
-                    domField.appendChild(toggleRow);
-                }
-                domRow.appendChild(domField);
-            });
-            if (table.Properties.DeleteCallBack) {
-                let deleteRow = document.createElement('div');
-                deleteRow.className = 'ez-field ez-delete-row';
-                let deleteBtn = document.createElement('span');
-                deleteBtn.textContent = 'DELETE';
-                deleteBtn.className = 'ez-btn delete-btn';
-                deleteBtn.addEventListener('click', () => {
-                    if (confirm('Are you sure that you want to delete this row?')) {
-                        let lengthFix = table.Body.Rows.length;
-                        table.Body.DisplayRows.splice(table.Body.DisplayRows.indexOf(row), 1);
-                        if (lengthFix == table.Body.Rows.length)
-                            table.Body.Rows.splice(table.Body.Rows.indexOf(row), 1);
-                        table.showHideDisplayRows(table.CurrentPage - 1);
-                        window[table.Properties.DeleteCallBack.trim()](row, table.Properties.TableName);
-                    }
+    buildDomRow(table, row) {
+        let domRow = document.createElement('div');
+        domRow.className = 'ez-row';
+        row.Fields.forEach((field, index) => {
+            let domField = document.createElement('div');
+            domField.className = 'ez-field';
+            domField.setAttribute('ez-title', table.Header.HeaderCols[index].Name);
+            field.DomObj = field.buildField(table);
+            field.RowParent = row;
+            domField.appendChild(field.DomObj);
+            if (!index) {
+                let toggleRow = document.createElement('span');
+                toggleRow.textContent = '+';
+                toggleRow.className = 'ez-toggle';
+                toggleRow.addEventListener('click', () => {
+                    field.RowParent.DomObj.classList.toggle('ez-show');
+                    toggleRow.textContent = toggleRow.textContent == '+' ? '-' : '+';
                 });
-                deleteRow.appendChild(deleteBtn);
-                domRow.appendChild(deleteRow);
+                domField.appendChild(toggleRow);
             }
-            row.DomObj = domRow;
-            domRows.push(domRow);
+            domRow.appendChild(domField);
         });
-        return domRows;
+        if (table.Properties.DeleteCallBack) {
+            let deleteRow = document.createElement('div');
+            deleteRow.className = 'ez-field ez-delete-row';
+            let deleteBtn = document.createElement('span');
+            deleteBtn.textContent = 'DELETE';
+            deleteBtn.className = 'ez-btn delete-btn';
+            deleteBtn.addEventListener('click', () => {
+                if (confirm('Are you sure that you want to delete this row?')) {
+                    let lengthFix = table.Body.Rows.length;
+                    table.Body.DisplayRows.splice(table.Body.DisplayRows.indexOf(row), 1);
+                    if (lengthFix == table.Body.Rows.length)
+                        table.Body.Rows.splice(table.Body.Rows.indexOf(row), 1);
+                    table.showHideDisplayRows(table.CurrentPage - 1);
+                    window[table.Properties.DeleteCallBack.trim()](row, table.Properties.TableName);
+                }
+            });
+            deleteRow.appendChild(deleteBtn);
+            domRow.appendChild(deleteRow);
+        }
+        row.DomObj = domRow;
+        return domRow
     }
 }
 
