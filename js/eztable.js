@@ -555,7 +555,7 @@ export class EzBody {
 
     buildRows(table, rows) {
         let domRows = [];
-        for (let i = 0; i < (table.Properties.RowsInPage || rows.length - 1) && rows[i] ; i++) {
+        for (let i = 0; i < (table.Properties.RowsInPage || rows.length) && rows[i] ; i++) {
             domRows.push(this.buildDomRow(table, rows[i]));
         }
         let body = document.createElement('div');
