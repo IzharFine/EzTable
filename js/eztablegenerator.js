@@ -29,25 +29,25 @@ export class EzTableGenerator {
             this._TempSelects = [
                 {
                     Name: '', Options:
-                    [{ Value: '', Desc: '' }]
+                        [{ Value: '', Desc: '' }]
                 }],
             this.TableStruct = null,
             this.Selects = null,
             this._TypeSelect = [
                 {
                     Name: "Types", Options:
-                    [{ Value: 'Text', Desc: 'Text' },
-                    { Value: 'Number', Desc: 'Number' },
-                    { Value: 'Date', Desc: 'Date' },
-                    { Value: 'Checkbox', Desc: 'Checkbox' },
-                    { Value: 'Select', Desc: 'Select' }]
+                        [{ Value: 'Text', Desc: 'Text' },
+                        { Value: 'Number', Desc: 'Number' },
+                        { Value: 'Date', Desc: 'Date' },
+                        { Value: 'Checkbox', Desc: 'Checkbox' },
+                        { Value: 'Select', Desc: 'Select' }]
                 }],
             this._TemplateSelect = [
                 {
                     Name: "Templates", Options:
-                    [{ Value: '', Desc: 'Default' },
-                    { Value: 'ez-dark', Desc: 'Dark' },
-                    ]
+                        [{ Value: '', Desc: 'Default' },
+                        { Value: 'ez-dark', Desc: 'Dark' },
+                        ]
                 }]
     }
 
