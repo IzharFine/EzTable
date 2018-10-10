@@ -52,7 +52,7 @@ The callback will get 2 parameters:<br />
 1. Row ID.<br />
 2. Table Name.<br />
 ### RowsInPage(number)
-If you want to add paging to your table its describes how many rows you want per page (0 means no paging).<br />
+If you want to add paging to your table its describes how many rows you want per page(0 means no paging), better performance for big tables.<br />
 ### EnableSearch(boolean)
 Enable/disable search input to your table.<br />
 ### Sortable(boolean)
