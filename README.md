@@ -1,4 +1,4 @@
-# EzTableJS 0.1
+# EzTable 0.1
 Smart DataTable, built in JavaScript ES6 & CSS by Izhar Fine.<br />
 An easy way to convert simple table to smart DataTable.
 
