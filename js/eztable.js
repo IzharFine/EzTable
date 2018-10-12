@@ -331,66 +331,68 @@ export class EzTable {
 
     searchInTable(searchComp) {
         if (this.SearchValue != searchComp.value) {
-            this.CurrentPage = 1;
-            this.Body.DisplayRows = [];
-            if (this.Properties.UpdateCallBack) {
-                this.Body.Rows.forEach((row, index) => {
-                    let foundFlag = false;
-                    row.Fields.forEach(field => {
-                        let fieldStruct = (this.TableStruct ? this.TableStruct.getStuctByIndex(field.Index) : null);
-                        let fieldType = (fieldStruct ? fieldStruct.Type.toLowerCase() : 'text');
-                        if (typeof (field.Value) == 'string') {
-                            switch (fieldType) {
-                                case 'checkbox':
-                                    break;
-                                case 'date':
-                                    let fixedValue = field.Value.split('-');
-                                    fixedValue = fixedValue[2] + '/' + fixedValue[1] + '/' + fixedValue[0];
-                                    if (fixedValue.indexOf(searchComp.value.toLowerCase()) != -1) {
-                                        foundFlag = true;
-                                        return;
-                                    }
-                                    break;
-                                case 'select':
-                                    let selectName = fieldStruct.SelectName;
-                                    let selectSelectedDesc = this.Selects.getDescByValue(selectName, field.Value);
-                                    if (selectSelectedDesc && selectSelectedDesc.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1) {
-                                        foundFlag = true;
-                                        return;
-                                    }
-                                    break;
-                                default:
-                                    if (field.Value.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1) {
-                                        foundFlag = true;
-                                        return;
-                                    }
-                                    break;
+            delayKeyUp(() => {
+                this.CurrentPage = 1;
+                this.Body.DisplayRows = [];
+                if (this.Properties.UpdateCallBack) {
+                    this.Body.Rows.forEach((row, index) => {
+                        let foundFlag = false;
+                        row.Fields.forEach(field => {
+                            let fieldStruct = (this.TableStruct ? this.TableStruct.getStuctByIndex(field.Index) : null);
+                            let fieldType = (fieldStruct ? fieldStruct.Type.toLowerCase() : 'text');
+                            if (typeof (field.Value) == 'string') {
+                                switch (fieldType) {
+                                    case 'checkbox':
+                                        break;
+                                    case 'date':
+                                        let fixedValue = field.Value.split('-');
+                                        fixedValue = fixedValue[2] + '/' + fixedValue[1] + '/' + fixedValue[0];
+                                        if (fixedValue.indexOf(searchComp.value.toLowerCase()) != -1) {
+                                            foundFlag = true;
+                                            return;
+                                        }
+                                        break;
+                                    case 'select':
+                                        let selectName = fieldStruct.SelectName;
+                                        let selectSelectedDesc = this.Selects.getDescByValue(selectName, field.Value);
+                                        if (selectSelectedDesc && selectSelectedDesc.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1) {
+                                            foundFlag = true;
+                                            return;
+                                        }
+                                        break;
+                                    default:
+                                        if (field.Value.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1) {
+                                            foundFlag = true;
+                                            return;
+                                        }
+                                        break;
+                                }
                             }
-                        }
+                        });
+                        this.manageDisplayRows(foundFlag, row, index);
                     });
-                    this.manageDisplayRows(foundFlag, row, index);
-                });
-            }
-            else {
-                this.Body.Rows.forEach((row, index) => {
-                    let foundFlag = false;
-                    row.Fields.forEach((field, index) => {
-                        if (typeof (field.Value) == 'string' && field.Value.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1) {
-                            foundFlag = true;
-                            return;
-                        }
+                }
+                else {
+                    this.Body.Rows.forEach((row, index) => {
+                        let foundFlag = false;
+                        row.Fields.forEach((field, index) => {
+                            if (typeof (field.Value) == 'string' && field.Value.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1) {
+                                foundFlag = true;
+                                return;
+                            }
+                        });
+                        this.manageDisplayRows(foundFlag, row, index);
                     });
-                    this.manageDisplayRows(foundFlag, row, index);
-                });
-            }
-            if (this.Properties.RowsInPage)
-                this.showHideDisplayRows(0);
-            else {
-                this.Body.DisplayRows.forEach(row => {
-                    this.Body.DomObj.appendChild(row.DomObj);
-                });
-            }
-            this.SearchValue = searchComp.value;
+                }
+                if (this.Properties.RowsInPage)
+                    this.showHideDisplayRows(0);
+                else {
+                    this.Body.DisplayRows.forEach(row => {
+                        this.Body.DomObj.appendChild(row.DomObj);
+                    });
+                }
+                this.SearchValue = searchComp.value;
+            }, 1000);
         }
     }
 
@@ -700,3 +702,11 @@ export class EzField {
         }
     }
 }
+
+let delayKeyUp = (function () {
+    var timer = 0;
+    return function (callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+    };
+})();
