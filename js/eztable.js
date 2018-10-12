@@ -361,7 +361,7 @@ export class EzTable {
                                         }
                                         break;
                                     default:
-                                        if (field.Value.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1) {
+                                        if (typeof (field.Value) == 'number' && field.Value.toString().indexOf(searchComp.value.toLowerCase()) != -1 || (typeof (field.Value) == 'string' && field.Value.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1)) {
                                             foundFlag = true;
                                             return;
                                         }
@@ -376,7 +376,7 @@ export class EzTable {
                     this.Body.Rows.forEach((row, index) => {
                         let foundFlag = false;
                         row.Fields.forEach((field, index) => {
-                            if (typeof (field.Value) == 'string' && field.Value.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1) {
+                            if (typeof (field.Value) == 'number' && field.Value.toString().indexOf(searchComp.value.toLowerCase()) != -1 ||(typeof (field.Value) == 'string' && field.Value.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1)) {
                                 foundFlag = true;
                                 return;
                             }
