@@ -340,7 +340,7 @@ export class EzTable {
                         row.Fields.forEach(field => {
                             let fieldStruct = (this.TableStruct ? this.TableStruct.getStuctByIndex(field.Index) : null);
                             let fieldType = (fieldStruct ? fieldStruct.Type.toLowerCase() : 'text');
-                            if (typeof (field.Value) == 'string') {
+                            if (typeof (field.Value) == 'string' || field.Value) == 'number') {
                                 switch (fieldType) {
                                     case 'checkbox':
                                         break;
