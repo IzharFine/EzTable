@@ -24,6 +24,7 @@ export class EzTable {
         this.Body = new EzBody(data.Body);
         this.CurrentPage = 1;
         this.PagingComp = null;
+        this.SearchValue = '';
     }
 
 
@@ -103,9 +104,9 @@ export class EzTable {
         let templateObj = [
             {
                 Name: "Templates", Options:
-                    [{ Value: '', Desc: 'Default' },
-                    { Value: 'ez-dark', Desc: 'Dark' },
-                    ]
+                [{ Value: '', Desc: 'Default' },
+                { Value: 'ez-dark', Desc: 'Dark' },
+                ]
             }];
         let select = new EzSelect(templateObj);
         select = select.buildSelect('Templates');
@@ -223,7 +224,7 @@ export class EzTable {
         submitBtn.addEventListener('click', () => {
             let newRow = {
                 Id: '0', Index: this.Body.Rows.length + 1, Fields:
-                    addFields
+                addFields
             };
             this.Body.buildDomRow(this, newRow);
             this.Body.Rows.push(newRow);
@@ -328,20 +329,15 @@ export class EzTable {
         }
     }
 
-    buildSearchComp() {
-        let self = this;
-        let searchComp = document.createElement('input');
-        searchComp.type = 'text';
-        searchComp.className = 'ez-search-input';
-        searchComp.placeholder = 'Type text to filter';
-        searchComp.addEventListener('keyup', () => {
+    searchInTable(searchComp) {
+        if (this.SearchValue != searchComp.value) {
             this.CurrentPage = 1;
             this.Body.DisplayRows = [];
-            if (self.Properties.UpdateCallBack) {
+            if (this.Properties.UpdateCallBack) {
                 this.Body.Rows.forEach((row, index) => {
                     let foundFlag = false;
                     row.Fields.forEach(field => {
-                        let fieldStruct = (self.TableStruct ? self.TableStruct.getStuctByIndex(field.Index) : null);
+                        let fieldStruct = (this.TableStruct ? this.TableStruct.getStuctByIndex(field.Index) : null);
                         let fieldType = (fieldStruct ? fieldStruct.Type.toLowerCase() : 'text');
                         if (typeof (field.Value) == 'string') {
                             switch (fieldType) {
@@ -357,7 +353,7 @@ export class EzTable {
                                     break;
                                 case 'select':
                                     let selectName = fieldStruct.SelectName;
-                                    let selectSelectedDesc = self.Selects.getDescByValue(selectName, field.Value);
+                                    let selectSelectedDesc = this.Selects.getDescByValue(selectName, field.Value);
                                     if (selectSelectedDesc && selectSelectedDesc.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1) {
                                         foundFlag = true;
                                         return;
@@ -394,6 +390,17 @@ export class EzTable {
                     this.Body.DomObj.appendChild(row.DomObj);
                 });
             }
+            this.SearchValue = searchComp.value;
+        }
+    }
+
+    buildSearchComp() {
+        let searchComp = document.createElement('input');
+        searchComp.type = 'text';
+        searchComp.className = 'ez-search-input';
+        searchComp.placeholder = 'Type text to filter';
+        searchComp.addEventListener('keyup', () => {
+            this.searchInTable(searchComp);
         });
         return searchComp;
     }
@@ -555,7 +562,7 @@ export class EzBody {
 
     buildRows(table, rows) {
         let domRows = [];
-        for (let i = 0; i < (table.Properties.RowsInPage || rows.length) && rows[i] ; i++) {
+        for (let i = 0; i < (table.Properties.RowsInPage || rows.length) && rows[i]; i++) {
             domRows.push(this.buildDomRow(table, rows[i]));
         }
         let body = document.createElement('div');
