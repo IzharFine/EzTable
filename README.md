@@ -17,14 +17,12 @@ then you need to create the EzTableGenerator object:
 ```
 var ezTable = new EzTableGenerator();
 ```
-after that you have 2 options:<br />
-1. Build your table with JsonObject you made.<br />
-YourTableObject - Can be an JsonObject or DOMTable, you`ll can see bouth structs later in this introduction.
+after that you have to load your table object.<br />
+Your table object Can be an JsonObject or DOMTable, you`ll can see bouth structs later in this introduction.
 ```
-ezTable.buildTable(YourTableObject, 'DOMTargetSelector');
+ezTable.loadTable(YourTableObject);
 ```
-2. Configuration the table build by your own.<br />
-For this part you need to use:
+After that you can use the control panel to configuration the table build by your own (this part not required, the table have default configuration):<br />
 ```
 ezTable.controlPanel();
 ```
@@ -86,6 +84,12 @@ Option value.
 ### Desc(string)
 Option description.
 
+when you finish this steps your table is ready to set.<br />
+```
+eztable.buildTable(TargetDOMSelector);
+```
+
+### Important notes and more information:
 Before you build the table you MUST have a DOM table object that describes your data (header and body):<br />
 ```
 <table>
@@ -101,15 +105,9 @@ Before you build the table you MUST have a DOM table object that describes your 
 </tbody>
 </table>
 ```
-### Note:
+* Note:
 data-id attribute desctibe the identity in the DB and its required only if u need it for UpdateCallBack/DeleteCallBack. <br />
 
-Now when everything is ready you can use:
-```
-ezTable.buildTable('DOMTableSelector', 'DOMTargetSelector');
-```
-
-### Important notes and information:
 After you finish to custom your table you can save the settings:
 ```
 var properties = JSON.stringify(ezTable.Properties);
@@ -118,9 +116,9 @@ var selects = JSON.stringify(ezTable.Selects);
 ```
 And re-use it in that way:
 ```
-ezTable.Properties = JSON.parse(properties);
-ezTable.TableStruct = JSON.parse(struct);
-ezTable.Selects = JSON.parse(selects);
+ezTable._Properties = JSON.parse(properties);
+ezTable._TableStruct = JSON.parse(struct);
+ezTable._Selects = JSON.parse(selects);
 ```
 Valid full build of EzTable JsonObject:
 ```
