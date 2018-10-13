@@ -28,66 +28,10 @@ After that you can use the control panel to configuration the table build by you
 ezTable.controlPanel();
 ```
 After you use this command a window with 3 labels will appear in the left top corner of your page(more information about this you can read later in this introduction).<br />
-When you finish this steps your table is ready to set.<br />
+When you finish this steps your table is ready to set:<br />
 ```
 eztable.buildTable(TargetDOMSelector);
 ```
-## Properties:
-### TableName(string)
-Describes your table name.<br />
-### AddCallBack(string)
-If you want to have a row add option to your table you need to write here function name for callback.<br />
-The callback will get 2 parameters:<br />
-1. New row object.<br />
-2. Table Name.<br />
-* PAY ATTENTION!<br />
-The new row ID is 0 by default, you probably will have change it and set the new row ID you got from the server for instant Update/Delete functions.<br />
-### UpdateCallBack(string)
-If you want to have a update column option to your table you need to write here function name for callback.<br />
-The callback will get 5 parameters:<br />
-1. Changed field object. <br />
-2. Old field value. <br />
-3. Field struct.<br />
-4. Row ID.<br />
-5. Table name.<br />
-### DeleteCallBack(string)
-If you want to have a delete row option to your table you need to write here function name for callback.<br />
-The callback will get 2 parameters:<br />
-1. Row ID.<br />
-2. Table Name.<br />
-### RowsInPage(number)
-If you want to add paging to your table its describes how many rows you want per page(0 means no paging), better performance for big tables.<br />
-### EnableSearch(boolean)
-Enable/disable search input to your table.<br />
-### Sortable(boolean)
-Enable/disable sortable by column to your table. <br />
-### ColumnMode(boolean)
-Table view mode. <br />
-### Template(string) 
-Template of your table.<br />
-
-## Struct:
-In this part you can describe each column (its especially helps with the UpdateCallBack and AddCallBack parts).<br />
-You should add structs as many as your columns length, each struct describes 1 column by index.<br />
-You can add struct object by click on the add object button.
-### PHName(string)
-Physical name of the column.
-### Type(string)
-Type of the column.
-### Disabled(boolean)
-Enable/disable (only relevant if using the UpdateCallBack/AddCallBack).
-### SelectName(string)
-Select name that belong to the column (only relevant if using the UpdateCallBack/AddCallBack and you want to add dropdown (select)).<br />
-
-## Selects:
-In this part you can add dropdowns (selects) to your table.<br />
-You can add select object by click on the add object button and add option object by click the add button.<br />
-### Name(string)
-Name of the select (the identity).
-### Value(string)
-Option value.
-### Desc(string)
-Option description.
 ### Important notes and more information:
 ## Valid DOM table struct.(you must have the header section, you dont need to have rows in your tbody but must have the tbody section):
 ```
@@ -219,5 +163,63 @@ var JsonObject = {
     ]
 };
 ```
+## More information about the control panel part:
+## Properties:
+### TableName(string)
+Describes your table name.<br />
+### AddCallBack(string)
+If you want to have a row add option to your table you need to write here function name for callback.<br />
+The callback will get 2 parameters:<br />
+1. New row object.<br />
+2. Table Name.<br />
+* PAY ATTENTION!<br />
+The new row ID is 0 by default, you probably will have change it and set the new row ID you got from the server for instant Update/Delete functions.<br />
+### UpdateCallBack(string)
+If you want to have a update column option to your table you need to write here function name for callback.<br />
+The callback will get 5 parameters:<br />
+1. Changed field object. <br />
+2. Old field value. <br />
+3. Field struct.<br />
+4. Row ID.<br />
+5. Table name.<br />
+### DeleteCallBack(string)
+If you want to have a delete row option to your table you need to write here function name for callback.<br />
+The callback will get 2 parameters:<br />
+1. Row ID.<br />
+2. Table Name.<br />
+### RowsInPage(number)
+If you want to add paging to your table its describes how many rows you want per page(0 means no paging), better performance for big tables.<br />
+### EnableSearch(boolean)
+Enable/disable search input to your table.<br />
+### Sortable(boolean)
+Enable/disable sortable by column to your table. <br />
+### ColumnMode(boolean)
+Table view mode. <br />
+### Template(string) 
+Template of your table.<br />
+
+## Struct:
+In this part you can describe each column (its especially helps with the UpdateCallBack and AddCallBack parts).<br />
+You should add structs as many as your columns length, each struct describes 1 column by index.<br />
+You can add struct object by click on the add object button.
+### PHName(string)
+Physical name of the column.
+### Type(string)
+Type of the column.
+### Disabled(boolean)
+Enable/disable (only relevant if using the UpdateCallBack/AddCallBack).
+### SelectName(string)
+Select name that belong to the column (only relevant if using the UpdateCallBack/AddCallBack and you want to add dropdown (select)).<br />
+
+## Selects:
+In this part you can add dropdowns (selects) to your table.<br />
+You can add select object by click on the add object button and add option object by click the add button.<br />
+### Name(string)
+Name of the select (the identity).
+### Value(string)
+Option value.
+### Desc(string)
+Option description.
+
 ### Because it wrote with ES6 module its work only in server (local server can be good too).
 ### Enjoy! :)
