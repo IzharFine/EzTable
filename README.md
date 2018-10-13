@@ -19,6 +19,7 @@ var ezTable = new EzTableGenerator();
 ```
 after that you have to load your table object.<br />
 Your table object Can be an JsonObject or DOMTable, you`ll can see bouth structs later in this introduction.
+* Your table object MUST contain at least the table header.
 ```
 ezTable.loadTable(YourTableObject);
 ```
