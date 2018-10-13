@@ -84,11 +84,10 @@ Option value.
 ### Desc(string)
 Option description.
 
-when you finish this steps your table is ready to set.<br />
+When you finish this steps your table is ready to set.<br />
 ```
 eztable.buildTable(TargetDOMSelector);
 ```
-
 ### Important notes and more information:
 Before you build the table you MUST have a DOM table object that describes your data (header and body):<br />
 ```
