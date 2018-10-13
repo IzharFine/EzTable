@@ -84,7 +84,7 @@ Name of the select (the identity).
 Option value.
 ### Desc(string)
 Option description.
-
+<br/>
 When you finish this steps your table is ready to set.<br />
 ```
 eztable.buildTable(TargetDOMSelector);
