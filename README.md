@@ -27,7 +27,7 @@ After that you can use the control panel to configuration the table build by you
 ```
 ezTable.controlPanel();
 ```
-after you use this command a window with 3 labels will appear in the left top corner of your page.<br />
+After you use this command a window with 3 labels will appear in the left top corner of your page.<br />
 ## Properties(Required):
 ### TableName(string)
 Describes your table name.<br />
