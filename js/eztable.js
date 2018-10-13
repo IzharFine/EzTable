@@ -340,7 +340,7 @@ export class EzTable {
                         row.Fields.forEach(field => {
                             let fieldStruct = (this.TableStruct ? this.TableStruct.getStuctByIndex(field.Index) : null);
                             let fieldType = (fieldStruct ? fieldStruct.Type.toLowerCase() : 'text');
-                            if (typeof(field.Value) == 'string' || typeof(field.Value) == 'number') {
+                            if (typeof (field.Value) == 'string' || typeof (field.Value) == 'number') {
                                 switch (fieldType) {
                                     case 'checkbox':
                                         break;
@@ -376,7 +376,7 @@ export class EzTable {
                     this.Body.Rows.forEach((row, index) => {
                         let foundFlag = false;
                         row.Fields.forEach((field, index) => {
-                            if (typeof (field.Value) == 'number' && field.Value.toString().indexOf(searchComp.value.toLowerCase()) != -1 ||(typeof (field.Value) == 'string' && field.Value.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1)) {
+                            if (typeof (field.Value) == 'number' && field.Value.toString().indexOf(searchComp.value.toLowerCase()) != -1 || (typeof (field.Value) == 'string' && field.Value.toLowerCase().indexOf(searchComp.value.toLowerCase()) != -1)) {
                                 foundFlag = true;
                                 return;
                             }
