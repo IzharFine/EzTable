@@ -8,7 +8,7 @@ import { EzBody, EzHeader, EzField, EzSelect, EzTable } from './eztable.js';
 export class EzTableGenerator {
     constructor() {
         this.EzTable = null,
-            this.Properties = [{
+            this._Properties = [{
                 TableName: '',
                 AddCallBack: '',
                 UpdateCallBack: '',
@@ -29,45 +29,62 @@ export class EzTableGenerator {
             this._TempSelects = [
                 {
                     Name: '', Options:
-                        [{ Value: '', Desc: '' }]
+                    [{ Value: '', Desc: '' }]
                 }],
-            this.TableStruct = null,
-            this.Selects = null,
+            this._TableStruct = null,
+            this._Selects = null,
             this._TypeSelect = [
                 {
                     Name: "Types", Options:
-                        [{ Value: 'Text', Desc: 'Text' },
-                        { Value: 'Number', Desc: 'Number' },
-                        { Value: 'Date', Desc: 'Date' },
-                        { Value: 'Checkbox', Desc: 'Checkbox' },
-                        { Value: 'Select', Desc: 'Select' }]
+                    [{ Value: 'Text', Desc: 'Text' },
+                    { Value: 'Number', Desc: 'Number' },
+                    { Value: 'Date', Desc: 'Date' },
+                    { Value: 'Checkbox', Desc: 'Checkbox' },
+                    { Value: 'Select', Desc: 'Select' }]
                 }],
             this._TemplateSelect = [
                 {
                     Name: "Templates", Options:
-                        [{ Value: '', Desc: 'Default' },
-                        { Value: 'ez-dark', Desc: 'Dark' },
-                        ]
-                }]
+                    [{ Value: '', Desc: 'Default' },
+                    { Value: 'ez-dark', Desc: 'Dark' },
+                    ]
+                }],
+            this._Rows = null,
+            this._Header = null
     }
 
-    buildTable(object, targetDOM) {
+    loadTable(object) {
         if (object.constructor == Object) {
-            this._buildFromJsonObject(object, document.querySelector(targetDOM));
+            this._loadFromJsonObject(object);
         }
         else {
-            this._buildFromDOMTable(document.querySelector(object), document.querySelector(targetDOM));
+            this._loadFromDOMTable(document.querySelector(object));
         }
     }
 
-
-    _buildFromJsonObject(jsonObject, targetDOM) {
-        let ezTable = new EzTable(jsonObject);
-        ezTable.buildTable(targetDOM);
+    buildTable(targetDOM) {
+        let tableObj = {
+            Header: this._Header,
+            Body: this._Rows,
+            Properties: this._Properties,
+            TableStruct: this._TableStruct && this._TableStruct.length ? this._TableStruct : null,
+            Selects: this._Selects
+        }
+        let ezTable = new EzTable(tableObj);
+        ezTable.buildTable(document.querySelector(targetDOM));
         this.EzTable = ezTable;
     }
 
-    _buildFromDOMTable(tableObject, targetDOM) {
+
+    _loadFromJsonObject(jsonObject) {
+        this._Properties = jsonObject.Properties || null;
+        this._Selects = jsonObject.Selects || null;
+        this._TableStruct = jsonObject.TableStruct || null;
+        this._Rows = jsonObject.Body;
+        this._Header = jsonObject.Header;
+    }
+
+    _loadFromDOMTable(tableObject, targetDOM) {
         let header = Array.prototype.slice.call(tableObject.getElementsByTagName('thead')[0].getElementsByTagName('th'));
         let headerObj = [];
         header.forEach(col => {
@@ -92,17 +109,9 @@ export class EzTableGenerator {
             }]
             rowsObj.push(row);
         });
-        let tableObj = {
-            Header: headerObj,
-            Body: rowsObj,
-            Properties: this.Properties,
-            TableStruct: this.TableStruct,
-            Selects: this.Selects
-        }
-        let ezTable = new EzTable(tableObj);
-        ezTable.buildTable(targetDOM);
+        this._Rows = rowsObj;
+        this._Header = headerObj;
         tableObject.style.display = 'none';
-        this.EzTable = ezTable;
     }
 
     controlPanel() {
@@ -155,13 +164,13 @@ export class EzTableGenerator {
     _updateJsonObjectByName(name, jsonObject) {
         switch (name) {
             case 'Properties':
-                this.Properties = jsonObject;
+                this._Properties = jsonObject;
                 break;
             case 'Struct':
-                this.TableStruct = jsonObject;
+                this._TableStruct = jsonObject;
                 break;
             case 'Selects':
-                this.Selects = jsonObject;
+                this._Selects = jsonObject;
                 break;
         }
     }
@@ -169,10 +178,10 @@ export class EzTableGenerator {
     _getJsonObjectByName(name) {
         switch (name) {
             case 'Properties':
-                return this.Properties;
+                return this._Properties;
                 break;
             case 'Struct':
-                return this.TableStruct;
+                return this._TableStruct;
                 break;
             case 'TempStruct':
                 return this._TempTableStruct;
@@ -181,7 +190,7 @@ export class EzTableGenerator {
                 return this._TempSelects;
                 break;
             case 'Selects':
-                return this.Selects;
+                return this._Selects;
                 break;
         }
     }
@@ -247,12 +256,12 @@ export class EzTableGenerator {
                     addBtn.className = 'ez-table-generator-btn';
                     addBtn.value = 'ADD';
                     addBtn.addEventListener('click', () => {
-                        let jsonObject = this.Selects[this.Selects.indexOf(object)];
+                        let jsonObject = this._Selects[this._Selects.indexOf(object)];
                         let tempObject = this._getJsonObjectByName('Temp' + name);
                         tempObject = JSON.stringify(tempObject);
                         tempObject = JSON.parse(tempObject);
                         jsonObject.Options.push(tempObject[0].Options[0]);
-                        this._getJsonObjectByName(name)[this.Selects.indexOf(object)] = jsonObject;
+                        this._getJsonObjectByName(name)[this._Selects.indexOf(object)] = jsonObject;
                         this._buildEditAddGenerator(name, wrapper.parentNode);
                     });
                     col.appendChild(addBtn);
