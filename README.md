@@ -15,7 +15,7 @@ First you need to add refernces to the js and css files like this:
 ```
 Then you need to create the EzTableGenerator object:
 ```
-var ezTable = new EzTableGenerator();
+let ezTable = new EzTableGenerator();
 ```
 After that you have to load your table object.<br />
 Your table object Can be an JsonObject or DOMTable, you`ll can see bouth structs later in this introduction.
@@ -53,9 +53,9 @@ data-id attribute desctibe the identity in the DB and its required only if u nee
 
 ## After you finish to custom your table with the control panel you can save the settings:
 ```
-var properties = JSON.stringify(ezTable._Properties);
-var struct = JSON.stringify(ezTable._TableStruct);
-var selects = JSON.stringify(ezTable._Selects);
+let properties = JSON.stringify(ezTable._Properties);
+let struct = JSON.stringify(ezTable._TableStruct);
+let selects = JSON.stringify(ezTable._Selects);
 ```
 * And re-use it in that way:
 ```
