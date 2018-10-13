@@ -107,19 +107,19 @@ Before you build the table you MUST have a DOM table object that describes your 
 * Note:
 data-id attribute desctibe the identity in the DB and its required only if u need it for UpdateCallBack/DeleteCallBack. <br />
 
-After you finish to custom your table you can save the settings:
+### After you finish to custom your table with the control panel you can save the settings:
 ```
-var properties = JSON.stringify(ezTable.Properties);
-var struct = JSON.stringify(ezTable.TableStruct);
-var selects = JSON.stringify(ezTable.Selects);
+var properties = JSON.stringify(ezTable._Properties);
+var struct = JSON.stringify(ezTable._TableStruct);
+var selects = JSON.stringify(ezTable._Selects);
 ```
-And re-use it in that way:
+* And re-use it in that way:
 ```
 ezTable._Properties = JSON.parse(properties);
 ezTable._TableStruct = JSON.parse(struct);
 ezTable._Selects = JSON.parse(selects);
 ```
-Valid full build of EzTable JsonObject:
+### Valid full build of EzTable JsonObject:
 ```
 var JsonObject = {
     Properties:[{
