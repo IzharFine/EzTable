@@ -103,7 +103,8 @@
         ezTable.Properties = JSON.parse(prop);
         ezTable.TableStruct = JSON.parse(struct);
         ezTable.Selects = JSON.parse(selects);
-        ezTable.buildTable('#eztable','body');
+        eztable.loadTable('#eztable');
+        ezTable.buildTable('body');
     });
 
     function addCallBack(a,b){
