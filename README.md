@@ -90,7 +90,7 @@ When you finish this steps your table is ready to set.<br />
 eztable.buildTable(TargetDOMSelector);
 ```
 ### Important notes and more information:
-Before you build the table you MUST have a DOM table object that describes your data (header and body):<br />
+### Valid DOM table struct.(you must have the header section, you dont need to have rows in your tbody but must have the tbody section):<br />
 ```
 <table>
 <thead>
