@@ -28,6 +28,10 @@ After that you can use the control panel to configuration the table build by you
 ezTable.controlPanel();
 ```
 After you use this command a window with 3 labels will appear in the left top corner of your page.<br />
+When you finish this steps your table is ready to set.<br />
+```
+eztable.buildTable(TargetDOMSelector);
+```
 ## Properties(Required):
 ### TableName(string)
 Describes your table name.<br />
@@ -84,11 +88,6 @@ Name of the select (the identity).
 Option value.
 ### Desc(string)
 Option description.
-<br/>
-When you finish this steps your table is ready to set.<br />
-```
-eztable.buildTable(TargetDOMSelector);
-```
 ### Important notes and more information:
 ## Valid DOM table struct.(you must have the header section, you dont need to have rows in your tbody but must have the tbody section):
 ```
