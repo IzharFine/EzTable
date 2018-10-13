@@ -221,5 +221,5 @@ Option value.
 ### Desc(string)
 Option description.
 
-### Because it wrote with ES6 module its work only in server (local server can be good too).
-### Enjoy! :)
+# Because it wrote with ES6 module its work only in server (local server can be good too).
+# Enjoy! :)
