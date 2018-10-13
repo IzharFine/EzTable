@@ -43,7 +43,7 @@ eztable.buildTable(TargetDOMSelector);
 </thead>
 <tbody>
 <tr data-id="5">
-<td>TEXT</td>
+<td>VALUE</td>
 </tr>
 </tbody>
 </table>
