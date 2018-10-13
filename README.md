@@ -27,12 +27,12 @@ After that you can use the control panel to configuration the table build by you
 ```
 ezTable.controlPanel();
 ```
-After you use this command a window with 3 labels will appear in the left top corner of your page.<br />
+After you use this command a window with 3 labels will appear in the left top corner of your page(more information about this you can read later in this introduction).<br />
 When you finish this steps your table is ready to set.<br />
 ```
 eztable.buildTable(TargetDOMSelector);
 ```
-## Properties(Required):
+## Properties:
 ### TableName(string)
 Describes your table name.<br />
 ### AddCallBack(string)
