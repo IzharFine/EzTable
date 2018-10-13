@@ -100,9 +100,9 @@
         let struct = '[{"PHName":"","Type":"Text","Disabled":false,"SelectName":""},{"PHName":"","Type":"Date","Disabled":false,"SelectName":""},{"PHName":"","Type":"Select","Disabled":false,"SelectName":"Genders"},{"PHName":"","Type":"Checkbox","Disabled":false,"SelectName":""}]';
         let selects = '[{"Name":"Genders","Options":[{"Value":"1","Desc":"Male"},{"Value":"2","Desc":"Female"}]}]';
         let ezTable = new EzTableGenerator();
-        ezTable.Properties = JSON.parse(prop);
-        ezTable.TableStruct = JSON.parse(struct);
-        ezTable.Selects = JSON.parse(selects);
+        ezTable._Properties = JSON.parse(prop);
+        ezTable._TableStruct = JSON.parse(struct);
+        ezTable._Selects = JSON.parse(selects);
         ezTable.loadTable('#eztable');
         ezTable.buildTable('body');
     });
