@@ -7,7 +7,7 @@ import { EzBody, EzHeader, EzField, EzSelect, EzTable } from './eztable.js';
 
 export class EzTableGenerator {
     constructor() {
-        this.EzTable = null,
+            this.EzTable = null,
             this._Properties = [{
                 TableName: '',
                 AddCallBack: '',
