@@ -13,7 +13,7 @@ First you need to add refernces to the js and css files like this:
 </script>
 <link rel="stylesheet" type="text/css" href="yourPath/eztable.css">
 ```
-then you need to create the EzTableGenerator object:
+Then you need to create the EzTableGenerator object:
 ```
 var ezTable = new EzTableGenerator();
 ```
