@@ -232,7 +232,7 @@ export class EzTable {
             addDiv.className = 'ez-add-div';
             setTimeout(() => { addDiv.remove(); }, 500);
             addBtn.disabled = false;
-            window[this.Properties.AddCallBack.trim()](newRow[0], this.Properties.TableName);
+            window[this.Properties.AddCallBack.trim()](newRow, this.Properties.TableName);
         });
         let cancelBtn = document.createElement('input');
         cancelBtn.type = 'button';
