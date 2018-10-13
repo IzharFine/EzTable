@@ -20,7 +20,7 @@ var ezTable = new EzTableGenerator();
 after that you have 2 options:<br />
 1. Build your table with JsonObject you made (more information about EzTable JsonObject later in this introduction).
 ```
-ezTable.buildTable(YourJsonObject, 'HTMLTargetSelector');
+ezTable.buildTable(YourJsonObject, 'DOMTargetSelector');
 ```
 2. Configuration the table build by your own.<br />
 For this part you need to use:
