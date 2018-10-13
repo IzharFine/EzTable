@@ -90,7 +90,7 @@ When you finish this steps your table is ready to set.<br />
 eztable.buildTable(TargetDOMSelector);
 ```
 ### Important notes and more information:
-### Valid DOM table struct.(you must have the header section, you dont need to have rows in your tbody but must have the tbody section):<br />
+## Valid DOM table struct.(you must have the header section, you dont need to have rows in your tbody but must have the tbody section):
 ```
 <table>
 <thead>
@@ -108,7 +108,7 @@ eztable.buildTable(TargetDOMSelector);
 * Note:
 data-id attribute desctibe the identity in the DB and its required only if u need it for UpdateCallBack/DeleteCallBack. <br />
 
-### After you finish to custom your table with the control panel you can save the settings:
+## After you finish to custom your table with the control panel you can save the settings:
 ```
 var properties = JSON.stringify(ezTable._Properties);
 var struct = JSON.stringify(ezTable._TableStruct);
@@ -120,7 +120,7 @@ ezTable._Properties = JSON.parse(properties);
 ezTable._TableStruct = JSON.parse(struct);
 ezTable._Selects = JSON.parse(selects);
 ```
-### Valid full build of EzTable JsonObject:
+## Valid full build of EzTable JsonObject:
 ```
 var JsonObject = {
     Properties:[{
