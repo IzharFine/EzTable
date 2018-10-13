@@ -32,7 +32,7 @@ When you finish this steps your table is ready to set:<br />
 ```
 eztable.buildTable(TargetDOMSelector);
 ```
-### Important notes and more information:
+# Important notes and more information:
 ## Valid DOM table struct.(you must have the header section, you dont need to have rows in your tbody but must have the tbody section):
 ```
 <table>
@@ -163,7 +163,7 @@ var JsonObject = {
     ]
 };
 ```
-## More information about the control panel part:
+### More information about the control panel part:
 ## Properties:
 ### TableName(string)
 Describes your table name.<br />
