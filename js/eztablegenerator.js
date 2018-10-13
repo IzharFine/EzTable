@@ -7,50 +7,50 @@ import { EzBody, EzHeader, EzField, EzSelect, EzTable } from './eztable.js';
 
 export class EzTableGenerator {
     constructor() {
-            this.EzTable = null,
-            this._Properties = [{
-                TableName: '',
-                AddCallBack: '',
-                UpdateCallBack: '',
-                DeleteCallBack: '',
-                RowsInPage: 0,
-                EnableSearch: false,
-                Sortable: false,
-                ColumnMode: false,
-                Template: ''
+        this.EzTable = null,
+        this._Properties = [{
+            TableName: '',
+            AddCallBack: '',
+            UpdateCallBack: '',
+            DeleteCallBack: '',
+            RowsInPage: 0,
+            EnableSearch: false,
+            Sortable: false,
+            ColumnMode: false,
+            Template: ''
+        }],
+        this._TempTableStruct =
+        [{
+            PHName: '',
+            Type: 'Text',
+            Disabled: false,
+            SelectName: ''
+        }],
+        this._TempSelects = [
+            {
+                Name: '', Options:
+                [{ Value: '', Desc: '' }]
             }],
-            this._TempTableStruct =
-            [{
-                PHName: '',
-                Type: 'Text',
-                Disabled: false,
-                SelectName: ''
+        this._TableStruct = null,
+        this._Selects = null,
+        this._TypeSelect = [
+            {
+                Name: "Types", Options:
+                [{ Value: 'Text', Desc: 'Text' },
+                { Value: 'Number', Desc: 'Number' },
+                { Value: 'Date', Desc: 'Date' },
+                { Value: 'Checkbox', Desc: 'Checkbox' },
+                { Value: 'Select', Desc: 'Select' }]
             }],
-            this._TempSelects = [
-                {
-                    Name: '', Options:
-                    [{ Value: '', Desc: '' }]
-                }],
-            this._TableStruct = null,
-            this._Selects = null,
-            this._TypeSelect = [
-                {
-                    Name: "Types", Options:
-                    [{ Value: 'Text', Desc: 'Text' },
-                    { Value: 'Number', Desc: 'Number' },
-                    { Value: 'Date', Desc: 'Date' },
-                    { Value: 'Checkbox', Desc: 'Checkbox' },
-                    { Value: 'Select', Desc: 'Select' }]
-                }],
-            this._TemplateSelect = [
-                {
-                    Name: "Templates", Options:
-                    [{ Value: '', Desc: 'Default' },
-                    { Value: 'ez-dark', Desc: 'Dark' },
-                    ]
-                }],
-            this._Rows = null,
-            this._Header = null
+        this._TemplateSelect = [
+            {
+                Name: "Templates", Options:
+                [{ Value: '', Desc: 'Default' },
+                { Value: 'ez-dark', Desc: 'Dark' },
+                ]
+            }],
+        this._Rows = null,
+        this._Header = null
     }
 
     loadTable(object) {
