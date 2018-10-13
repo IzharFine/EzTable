@@ -220,6 +220,6 @@ Name of the select (the identity).
 Option value.
 ### Desc(string)
 Option description.
-
-# Because it wrote with ES6 module its work only in server (local server can be good too).
-# Enjoy! :)
+<br /><br />
+### Because it wrote with ES6 module its work only in server (local server can be good too).
+### Enjoy! :)
