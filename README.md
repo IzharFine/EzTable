@@ -214,7 +214,7 @@ let properties = JSON.stringify(ezTable._Properties);
 let struct = JSON.stringify(ezTable._TableStruct);
 let selects = JSON.stringify(ezTable._Selects);
 ```
-* And re-use it in that way:
+* And re-use it:
 ```
 ezTable._Properties = JSON.parse(properties);
 ezTable._TableStruct = JSON.parse(struct);
