@@ -51,18 +51,6 @@ eztable.buildTable(TargetDOMSelector);
 * Note:
 data-id attribute desctibe the identity in the DB and its required only if u need it for UpdateCallBack/DeleteCallBack. <br />
 
-## After you finish to custom your table with the control panel you can save the settings:
-```
-let properties = JSON.stringify(ezTable._Properties);
-let struct = JSON.stringify(ezTable._TableStruct);
-let selects = JSON.stringify(ezTable._Selects);
-```
-* And re-use it in that way:
-```
-ezTable._Properties = JSON.parse(properties);
-ezTable._TableStruct = JSON.parse(struct);
-ezTable._Selects = JSON.parse(selects);
-```
 ## Valid full build of EzTable JsonObject:
 ```
 var JsonObject = {
@@ -219,7 +207,19 @@ Name of the select (the identity).
 ### Value(string)
 Option value.
 ### Desc(string)
-Option description.
+Option description. <br / >
+### After you finish to custom your table with the control panel you can save the settings:
+```
+let properties = JSON.stringify(ezTable._Properties);
+let struct = JSON.stringify(ezTable._TableStruct);
+let selects = JSON.stringify(ezTable._Selects);
+```
+* And re-use it in that way:
+```
+ezTable._Properties = JSON.parse(properties);
+ezTable._TableStruct = JSON.parse(struct);
+ezTable._Selects = JSON.parse(selects);
+```
 <br /><br />
 ### Because it wrote with ES6 module its work only in server (local server can be good too).
 ### Enjoy! :)
