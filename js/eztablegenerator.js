@@ -8,49 +8,49 @@ import { EzBody, EzHeader, EzField, EzSelect, EzTable } from './eztable.js';
 export class EzTableGenerator {
     constructor() {
         this.EzTable = null,
-        this._Properties = [{
-            TableName: '',
-            AddCallBack: '',
-            UpdateCallBack: '',
-            DeleteCallBack: '',
-            RowsInPage: 0,
-            EnableSearch: false,
-            Sortable: false,
-            ColumnMode: false,
-            Template: ''
-        }],
-        this._TempTableStruct =
-        [{
-            PHName: '',
-            Type: 'Text',
-            Disabled: false,
-            SelectName: ''
-        }],
-        this._TempSelects = [
-            {
-                Name: '', Options:
-                [{ Value: '', Desc: '' }]
+            this._Properties = [{
+                TableName: '',
+                AddCallBack: '',
+                UpdateCallBack: '',
+                DeleteCallBack: '',
+                RowsInPage: 0,
+                EnableSearch: false,
+                Sortable: false,
+                ColumnMode: false,
+                Template: ''
             }],
-        this._TableStruct = null,
-        this._Selects = null,
-        this._TypeSelect = [
-            {
-                Name: "Types", Options:
-                [{ Value: 'Text', Desc: 'Text' },
-                { Value: 'Number', Desc: 'Number' },
-                { Value: 'Date', Desc: 'Date' },
-                { Value: 'Checkbox', Desc: 'Checkbox' },
-                { Value: 'Select', Desc: 'Select' }]
+            this._TempTableStruct =
+            [{
+                PHName: '',
+                Type: 'Text',
+                Disabled: false,
+                SelectName: ''
             }],
-        this._TemplateSelect = [
-            {
-                Name: "Templates", Options:
-                [{ Value: '', Desc: 'Default' },
-                { Value: 'ez-dark', Desc: 'Dark' },
-                ]
-            }],
-        this._Rows = null,
-        this._Header = null
+            this._TempSelects = [
+                {
+                    Name: '', Options:
+                        [{ Value: '', Desc: '' }]
+                }],
+            this._TableStruct = null,
+            this._Selects = null,
+            this._TypeSelect = [
+                {
+                    Name: "Types", Options:
+                        [{ Value: 'Text', Desc: 'Text' },
+                        { Value: 'Number', Desc: 'Number' },
+                        { Value: 'Date', Desc: 'Date' },
+                        { Value: 'Checkbox', Desc: 'Checkbox' },
+                        { Value: 'Select', Desc: 'Select' }]
+                }],
+            this._TemplateSelect = [
+                {
+                    Name: "Templates", Options:
+                        [{ Value: '', Desc: 'Default' },
+                        { Value: 'ez-dark', Desc: 'Dark' },
+                        ]
+                }],
+            this._Rows = null,
+            this._Header = null
     }
 
     loadTable(object) {
@@ -132,7 +132,7 @@ export class EzTableGenerator {
         generatorWrapper.appendChild(this._buildGeneratorDivs('Struct'));
         generatorWrapper.appendChild(this._buildGeneratorDivs('Selects'));
         document.querySelector('body').appendChild(generatorWrapper);
-        setTimeout(() => { generatorWrapper.classList = 'ez-table-generator ez-show'; }, 50);
+        setTimeout(() => { generatorWrapper.className ='ez-table-generator ez-show'; }, 50);
     }
 
     _buildGeneratorDivs(name) {
