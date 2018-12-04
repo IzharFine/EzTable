@@ -83,7 +83,7 @@ export class EzTable {
 
     buildPageInRowsInput(table) {
         let wrapper = document.createElement('div');
-        wrapper.classList = 'ez-hamburger-line';
+        wrapper.className = 'ez-hamburger-line';
         let input = document.createElement('input');
         input.type = 'number';
         input.min = '0';
@@ -100,13 +100,13 @@ export class EzTable {
 
     buildTemplateSelect(table) {
         let wrapper = document.createElement('div');
-        wrapper.classList = 'ez-hamburger-line ez-template-select';
+        wrapper.className = 'ez-hamburger-line ez-template-select';
         let templateObj = [
             {
                 Name: "Templates", Options:
-                [{ Value: '', Desc: 'Default' },
-                { Value: 'ez-dark', Desc: 'Dark' },
-                ]
+                    [{ Value: '', Desc: 'Default' },
+                    { Value: 'ez-dark', Desc: 'Dark' },
+                    ]
             }];
         let select = new EzSelect(templateObj);
         select = select.buildSelect('Templates');
@@ -120,7 +120,7 @@ export class EzTable {
 
     buildSortSelect() {
         let wrapper = document.createElement('div');
-        wrapper.classList = 'ez-hamburger-line ez-sort-select';
+        wrapper.className = 'ez-hamburger-line ez-sort-select';
         let select = document.createElement('select');
         this.Header.HeaderCols.forEach(ele => {
             let option = document.createElement('option');
@@ -224,7 +224,7 @@ export class EzTable {
         submitBtn.addEventListener('click', () => {
             let newRow = {
                 Id: '0', Index: this.Body.Rows.length + 1, Fields:
-                addFields
+                    addFields
             };
             this.Body.buildDomRow(this, newRow);
             this.Body.Rows.push(newRow);
@@ -257,13 +257,13 @@ export class EzTable {
         let row = document.createElement('div');
         row.className = 'ez-paging';
         let leftArrow = document.createElement('div');
-        leftArrow.classList = 'ez-arrow ez-left-arrow';
+        leftArrow.className = 'ez-arrow ez-left-arrow';
         leftArrow.addEventListener('click', () => {
             pageInput.value = pageInput.value - 1;
             this.changePage(pageInput);
         });
         let rightArrow = document.createElement('div');
-        rightArrow.classList = 'ez-arrow ez-right-arrow';;
+        rightArrow.className = 'ez-arrow ez-right-arrow';;
         rightArrow.addEventListener('click', () => {
             pageInput.value = pageInput.value * 1 + 1;
             this.changePage(pageInput);
@@ -512,7 +512,7 @@ export class EzHeader {
             element.DomObj = headerCol;
             if (table.Properties.Sortable) {
                 let sortComp = document.createElement('div');
-                sortComp.classList = 'ez-arrow ez-bottom-arrow';
+                sortComp.className = 'ez-arrow ez-bottom-arrow';
                 sortComp.addEventListener('click', () => {
                     this.buildSortComp(element, sortComp, table);
                 });
