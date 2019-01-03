@@ -362,7 +362,15 @@
 }
 
     .ez-table-generator h3 {
-        margin-top: 0px;
+        margin: 0px;
+    }
+
+    .ez-table-generator .ez-copy-object {
+       display: block;
+       margin-bottom: .75rem;
+       text-decoration: underline;
+       color: blue;
+       cursor: pointer;
     }
 
     .ez-table-generator.ez-show {
