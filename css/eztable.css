@@ -371,6 +371,7 @@
        text-decoration: underline;
        color: blue;
        cursor: pointer;
+       font-size: 14px;
     }
 
     .ez-table-generator.ez-show {
