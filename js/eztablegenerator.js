@@ -120,6 +120,7 @@ export class EzTableGenerator {
         let title = document.createElement('h3');
         title.textContent = 'EzTable Object Generator';
         let copyObject = document.createElement('span');
+        copyObject.className = 'ez-copy-object';
         copyObject.textContent = 'Get json object';
         let closeBtn = document.createElement('span');
         closeBtn.textContent = 'X';
