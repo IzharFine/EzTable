@@ -119,6 +119,8 @@ export class EzTableGenerator {
         generatorWrapper.className = 'ez-table-generator';
         let title = document.createElement('h3');
         title.textContent = 'EzTable Object Generator';
+        let copyObject = document.createElement('span');
+        copyObject.textContent = 'Get json object';
         let closeBtn = document.createElement('span');
         closeBtn.textContent = 'X';
         closeBtn.className = 'ez-table-generator-close-btn';
@@ -128,6 +130,7 @@ export class EzTableGenerator {
         });
         generatorWrapper.appendChild(closeBtn);
         generatorWrapper.appendChild(title);
+        generatorWrapper.appendChild(copyObject);
         generatorWrapper.appendChild(this._buildGeneratorDivs('Properties'));
         generatorWrapper.appendChild(this._buildGeneratorDivs('Struct'));
         generatorWrapper.appendChild(this._buildGeneratorDivs('Selects'));
