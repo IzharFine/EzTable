@@ -122,6 +122,16 @@ export class EzTableGenerator {
         let copyObject = document.createElement('span');
         copyObject.className = 'ez-copy-object';
         copyObject.textContent = 'Get json object';
+        copyObject.addEventListener('click', () => {
+            let output = this.stringify({
+                Properties:this._Properties,
+                Selects:this._Selects,
+                TableStruct:this._TableStruct,
+                Header:this._Header,
+                Body: this._Rows
+            });
+            console.log(output);
+        });
         let closeBtn = document.createElement('span');
         closeBtn.textContent = 'X';
         closeBtn.className = 'ez-table-generator-close-btn';
