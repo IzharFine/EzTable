@@ -123,7 +123,7 @@ export class EzTableGenerator {
         copyObject.className = 'ez-copy-object';
         copyObject.textContent = 'Get json object';
         copyObject.addEventListener('click', () => {
-            let output = this.stringify({
+            let output = JSON.stringify({
                 Properties:this._Properties,
                 Selects:this._Selects,
                 TableStruct:this._TableStruct,
