@@ -366,7 +366,7 @@
     }
 
     .ez-table-generator .ez-copy-object {
-       display: block;
+       display: inline-block;
        margin-bottom: .75rem;
        text-decoration: underline;
        color: blue;
